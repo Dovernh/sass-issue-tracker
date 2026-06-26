@@ -12,7 +12,7 @@ import { config } from './config.js';
  */
 
 const ALG = 'HS256';
-const ISSUER = 'issue-tracker';
+const ISSUER = 'saas-issue-tracker';
 /** Short-lived per the security checklist; the frontend handles idle logout. */
 const TTL = '7d';
 

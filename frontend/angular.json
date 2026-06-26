@@ -7,7 +7,7 @@
   },
   "newProjectRoot": "projects",
   "projects": {
-    "issue-tracker": {
+    "saas-issue-tracker": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -70,10 +70,10 @@
           "builder": "@angular/build:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "issue-tracker:build:production"
+              "buildTarget": "saas-issue-tracker:build:production"
             },
             "development": {
-              "buildTarget": "issue-tracker:build:development"
+              "buildTarget": "saas-issue-tracker:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -81,7 +81,7 @@
         "test": {
           "builder": "@angular/build:unit-test",
           "options": {
-            "buildTarget": "issue-tracker:build",
+            "buildTarget": "saas-issue-tracker:build",
             "runner": "vitest",
             "setupFiles": ["src/test-setup.ts"]
           }

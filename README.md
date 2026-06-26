@@ -1,4 +1,4 @@
-# issue-tracker
+# saas-issue-tracker
 
 Two-part app for logging users' issues with an app.
 

@@ -3,7 +3,7 @@
 # at this repo. Secrets (sync: false) are entered in the dashboard, never here.
 services:
   - type: web
-    name: issue-tracker-api
+    name: saas-issue-tracker-api
     runtime: node
     plan: free
     rootDir: backend
@@ -17,15 +17,15 @@ services:
         sync: false
       - key: TURSO_AUTH_TOKEN
         sync: false
-      - key: FRONTEND_URL # https://issue-tracker-web.onrender.com
+      - key: FRONTEND_URL # https://saas-issue-tracker-web.onrender.com
         sync: false
 
   - type: web
-    name: issue-tracker-web
+    name: saas-issue-tracker-web
     runtime: static
     rootDir: frontend
     buildCommand: npm install && npm run build
-    staticPublishPath: dist/issue-tracker/browser
+    staticPublishPath: dist/saas-issue-tracker/browser
     # SPA fallback so deep links / refreshes resolve to index.html.
     routes:
       - type: rewrite
