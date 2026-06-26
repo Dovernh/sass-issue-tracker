@@ -1,0 +1,430 @@
+/* You can add global styles to this file, and also import other style files */
+/* Pico CSS is loaded via angular.json "styles" (node_modules/@picocss/pico/css/pico.min.css). */
+
+/* ============================================================================
+   Global color palette
+   Defined once here as CSS variables and mapped onto Pico's tokens, so every
+   Pico-styled element AND our own components (which use var(--pico-*)) follow
+   the same palette. ThemeService sets <html data-theme="light|dark">.
+
+   We deliberately keep the `--pico-*` prefix on these tokens rather than
+   renaming them: Pico already owns that namespace, so reusing it both feeds
+   Pico's own components and prevents our variables from colliding with any
+   other library's custom properties.
+   ========================================================================== */
+
+:root,
+[data-theme='light'] {
+  color-scheme: light;
+
+  /* App brand tokens (reusable) */
+  --app-bg: #f4f6f9;
+  --app-surface: #ffffff;
+  --app-surface-sunken: #f0f3f7;
+  --app-text: #161a1f;
+  --app-muted: #5b6470;
+  --app-border: #e3e7ee;
+  --app-primary: #2f43c7;
+  --app-primary-hover: #26379f;
+  --app-primary-soft: rgba(47, 67, 199, 0.09);
+  --app-on-primary: #ffffff;
+  --app-accent: #d98b1f; /* amber — matches the issue icon */
+  --app-bg-gradient:
+    radial-gradient(55% 45% at 12% -6%, rgba(47, 67, 199, 0.07) 0%, transparent 62%),
+    radial-gradient(48% 40% at 100% 2%, rgba(217, 139, 31, 0.05) 0%, transparent 60%),
+    linear-gradient(180deg, #eef1f6 0%, #f4f6f9 48%);
+  --app-danger: #c0264a;
+  --app-danger-soft: rgba(192, 38, 74, 0.08);
+  --app-success: #1f9d63;
+  --app-warning: #d98315;
+
+  /* Typography */
+  --app-font-sans: 'IBM Plex Sans', ui-sans-serif, system-ui, sans-serif;
+  --app-font-display: 'Bricolage Grotesque', var(--app-font-sans);
+  --app-font-mono: 'IBM Plex Mono', ui-monospace, 'SF Mono', monospace;
+
+  /* Elevation & shape */
+  --app-radius: 10px;
+  --app-radius-sm: 6px;
+  --app-shadow-sm: 0 1px 2px rgba(16, 24, 40, 0.04), 0 1px 3px rgba(16, 24, 40, 0.06);
+  --app-shadow-md: 0 4px 12px rgba(16, 24, 40, 0.06), 0 12px 28px rgba(16, 24, 40, 0.08);
+  --app-shadow-lg: 0 18px 50px rgba(16, 24, 40, 0.14);
+  --app-ring: 0 0 0 4px var(--app-primary-soft);
+
+  /* Controls */
+  --app-control-height: 2.6rem;
+
+  /* Map onto Pico */
+  --pico-font-family: var(--app-font-sans);
+  --pico-background-color: var(--app-bg);
+  --pico-card-background-color: var(--app-surface);
+  --pico-color: var(--app-text);
+  --pico-muted-color: var(--app-muted);
+  --pico-border-color: var(--app-border);
+  --pico-border-radius: var(--app-radius-sm);
+  --pico-primary: var(--app-primary);
+  --pico-primary-background: var(--app-primary);
+  --pico-primary-hover-background: var(--app-primary-hover);
+  --pico-primary-inverse: var(--app-on-primary);
+}
+
+[data-theme='dark'] {
+  color-scheme: dark;
+
+  --app-bg: #0f1217;
+  --app-surface: #181d25;
+  --app-surface-sunken: #12161c;
+  --app-text: #e7ebf0;
+  --app-muted: #9aa4b2;
+  --app-border: #283039;
+  --app-primary: #8093ff;
+  --app-primary-hover: #99a8ff;
+  --app-primary-soft: rgba(128, 147, 255, 0.16);
+  --app-on-primary: #0b1020;
+  --app-accent: #ffbe4d; /* slightly brighter amber for dark surfaces */
+  --app-bg-gradient:
+    radial-gradient(55% 45% at 12% -6%, rgba(128, 147, 255, 0.14) 0%, transparent 62%),
+    radial-gradient(48% 40% at 100% 2%, rgba(255, 190, 77, 0.07) 0%, transparent 60%),
+    linear-gradient(180deg, #141a24 0%, #0f1217 48%);
+  --app-danger: #ff6b81;
+  --app-danger-soft: rgba(255, 107, 129, 0.14);
+  --app-success: #46c98b;
+  --app-warning: #ffbe4d;
+
+  --app-shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
+  --app-shadow-md: 0 6px 18px rgba(0, 0, 0, 0.45);
+  --app-shadow-lg: 0 22px 60px rgba(0, 0, 0, 0.6);
+  --app-ring: 0 0 0 4px var(--app-primary-soft);
+
+  --pico-background-color: var(--app-bg);
+  --pico-card-background-color: var(--app-surface);
+  --pico-color: var(--app-text);
+  --pico-muted-color: var(--app-muted);
+  --pico-border-color: var(--app-border);
+  --pico-primary: var(--app-primary);
+  --pico-primary-background: var(--app-primary);
+  --pico-primary-hover-background: var(--app-primary-hover);
+  --pico-primary-inverse: var(--app-on-primary);
+}
+
+body {
+  font-family: var(--app-font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  min-height: 100vh;
+  background-color: var(--app-bg);
+  background-image: var(--app-bg-gradient);
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--app-font-display);
+  letter-spacing: -0.025em;
+  font-weight: 700;
+  color: var(--app-text);
+}
+
+/* AG Grid column headers: compact uppercase with tracking for an editorial,
+   high-contrast look (paired with the theme's headerFontWeight/Size). */
+.ag-header-cell-text {
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* Validation errors rendered by the FieldError directive (src/app/shared/field-error.ts) */
+.field-error {
+  margin-top: 0.25rem;
+  color: var(--app-danger);
+  font-size: 0.85rem;
+  line-height: 1.3;
+}
+
+input[aria-invalid='true'],
+textarea[aria-invalid='true'],
+select[aria-invalid='true'] {
+  border-color: var(--app-danger);
+  outline-color: var(--app-danger);
+}
+
+.required {
+  color: var(--app-danger);
+}
+
+/* ============================================================================
+   Buttons — shared across every screen, so common actions (save, cancel, add,
+   delete…) look the same everywhere. Compose `.btn` with one variant modifier:
+   --primary, --secondary, --outline, --ghost, --danger.
+   ========================================================================== */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+  flex: 0 0 auto;
+  height: var(--app-control-height);
+  margin: 0;
+  padding: 0 1.3rem;
+  border: 1px solid transparent;
+  border-radius: var(--app-radius-sm);
+  background: transparent;
+  /* Use --app-text, NOT --pico-color: Pico's button reset locally reassigns
+     --pico-color to --pico-primary-inverse inside every <button>, which would
+     turn non-primary button text into the dark "on-primary" color. */
+  color: var(--app-text);
+  font-family: var(--app-font-sans);
+  font-size: 0.95rem;
+  font-weight: 600;
+  line-height: 1;
+  white-space: nowrap;
+  cursor: pointer;
+  transition:
+    transform 0.15s ease,
+    background-color 0.15s ease,
+    border-color 0.15s ease,
+    color 0.15s ease,
+    box-shadow 0.15s ease;
+
+  &:focus-visible {
+    outline: none;
+    box-shadow: var(--app-ring);
+  }
+
+  &:disabled {
+    opacity: 0.55;
+    cursor: not-allowed;
+    transform: none;
+  }
+}
+
+/* Pico forces `button[type=submit]` to width:100% (specificity 0,1,1), which
+   would beat a plain `.btn`. Match that specificity here so our submit buttons
+   stay content-width like the rest. */
+button.btn {
+  width: auto;
+}
+
+.btn--primary {
+  background: var(--app-primary);
+  border-color: var(--app-primary);
+  color: var(--app-on-primary);
+  box-shadow: var(--app-shadow-sm);
+
+  &:hover:not(:disabled) {
+    transform: translateY(-1px);
+    background: var(--app-primary-hover);
+    border-color: var(--app-primary-hover);
+    box-shadow: var(--app-shadow-md);
+  }
+}
+
+.btn--secondary {
+  /* Filled a touch lighter than the surface, with a boundary that clears the
+     WCAG 1.4.11 (3:1 non-text contrast) bar so the button is clearly visible. */
+  background: color-mix(in srgb, var(--app-text) 14%, var(--app-surface));
+  border-color: color-mix(in srgb, var(--app-text) 52%, transparent);
+  color: var(--app-text);
+
+  &:hover:not(:disabled) {
+    background: color-mix(in srgb, var(--app-text) 22%, var(--app-surface));
+    border-color: color-mix(in srgb, var(--app-text) 70%, transparent);
+  }
+}
+
+.btn--outline {
+  background: transparent;
+  border-color: var(--app-primary);
+  color: var(--app-primary);
+
+  &:hover:not(:disabled) {
+    background: var(--app-primary-soft);
+  }
+}
+
+.btn--ghost {
+  background: transparent;
+  /* Boundary kept at ~3:1 (WCAG 1.4.11) so the outline is perceivable. */
+  border-color: color-mix(in srgb, var(--app-text) 52%, transparent);
+  color: var(--app-muted);
+
+  &:hover:not(:disabled) {
+    border-color: color-mix(in srgb, var(--app-text) 70%, transparent);
+    color: var(--app-text);
+  }
+}
+
+.btn--danger {
+  background: transparent;
+  border-color: var(--app-danger);
+  color: var(--app-danger);
+
+  &:hover:not(:disabled) {
+    background: var(--app-danger-soft);
+  }
+}
+
+.ag-row .ag-cell {
+  display: flex;
+  align-items: center;
+}
+
+.ag-paging-panel {
+  --ag-pagination-panel-height: 3rem;
+}
+
+/* Refine AG Grid pager controls: quiet, square-ish icon buttons instead of the
+   chunky filled defaults. */
+.ag-paging-panel .ag-paging-button {
+  min-width: 2rem;
+  height: 2rem;
+  margin: 0 0.15rem;
+  border: 1px solid var(--app-border);
+  border-radius: var(--app-radius-sm);
+  background: var(--app-surface);
+  color: var(--app-text);
+  cursor: pointer;
+}
+
+.ag-paging-panel .ag-paging-button:hover:not(.ag-disabled) {
+  background: var(--app-primary-soft);
+  border-color: color-mix(in srgb, var(--app-primary) 40%, var(--app-border));
+}
+
+.ag-paging-panel .ag-paging-button.ag-disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+
+/* Row-actions dropdown (kebab menu). Rendered on <body> by ActionsCellRenderer
+   so it escapes AG Grid's cell overflow — styles must be global. */
+.grid-actions-menu {
+  position: fixed;
+  z-index: 1000;
+  min-width: 11rem;
+  padding: 0.3rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+  background: var(--app-surface);
+  border: 1px solid var(--app-border);
+  border-radius: 0.5rem;
+  box-shadow: var(--app-shadow-md, 0 8px 24px rgb(0 0 0 / 0.18));
+}
+
+.grid-actions-menu__item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  width: 100%;
+  margin: 0;
+  padding: 0.5rem 0.6rem;
+  border: none;
+  border-radius: 0.375rem;
+  background: transparent;
+  color: var(--app-text);
+  font-size: 0.9rem;
+  text-align: left;
+  cursor: pointer;
+}
+
+.grid-actions-menu__item:hover {
+  background: color-mix(in srgb, var(--app-primary) 14%, transparent);
+}
+
+.grid-actions-menu__item.grid-action--danger {
+  color: var(--app-danger);
+}
+
+.grid-actions-menu__item.grid-action--danger:hover {
+  background: var(--app-danger-soft, color-mix(in srgb, var(--app-danger) 14%, transparent));
+}
+
+/* ── Printable report ─────────────────────────────────────────────────────────
+   `.print-report` blocks are hidden on screen and revealed for printing; the
+   interactive UI (nav, buttons, AG Grid, page headers) is hidden so the printout
+   reads as a clean report. */
+.print-report {
+  display: none;
+}
+
+.print-report__head {
+  margin-bottom: 1rem;
+  border-bottom: 2px solid #000;
+  padding-bottom: 0.5rem;
+}
+
+.print-report__title {
+  margin: 0;
+  font-size: 1.6rem;
+}
+
+.print-report__meta {
+  margin: 0.25rem 0 0;
+  font-size: 0.9rem;
+  color: #333;
+}
+
+.print-report__h2 {
+  margin: 1.25rem 0 0.5rem;
+  font-size: 1.1rem;
+}
+
+.print-report__table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.85rem;
+}
+
+.print-report__table th,
+.print-report__table td {
+  border: 1px solid #999;
+  padding: 0.35rem 0.5rem;
+  text-align: left;
+  vertical-align: top;
+}
+
+.print-report__table thead {
+  background: #eee;
+}
+
+@media print {
+  .navbar,
+  app-toast,
+  .btn,
+  .grid-kebab,
+  .ag-paging-panel,
+  app-grid,
+  .issues__header,
+  .dashboard__header {
+    display: none !important;
+  }
+
+  body {
+    background: #fff;
+  }
+
+  .print-report {
+    display: block;
+  }
+
+  .print-report__table tr {
+    page-break-inside: avoid;
+  }
+
+  /* Stack the charts and keep each card whole (no splitting across pages). */
+  .dashboard__grid {
+    display: block;
+  }
+
+  .dashboard__card {
+    page-break-inside: avoid;
+    break-inside: avoid;
+    margin-bottom: 1rem;
+  }
+
+  .dashboard__chart {
+    height: 14rem;
+  }
+}

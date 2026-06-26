@@ -1,0 +1,75 @@
+.language-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.1rem;
+  padding: 1.5rem;
+  border: 1px solid var(--app-border);
+  border-radius: var(--app-radius);
+  background: var(--pico-card-background-color);
+  box-shadow: var(--app-shadow-sm);
+
+  h2 {
+    margin: 0;
+    font-size: 1.25rem;
+  }
+
+  label {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    margin: 0;
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--pico-muted-color);
+  }
+
+  .required {
+    margin-left: 0.15rem;
+    color: var(--pico-del-color, #d93526);
+    text-decoration: none;
+  }
+
+  > label {
+    position: relative;
+    padding-bottom: 1.2rem;
+  }
+
+  > label > .field-error {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    margin: 0;
+    font-weight: 400;
+    letter-spacing: normal;
+    text-transform: none;
+    line-height: 1.2;
+  }
+
+  input {
+    margin: 0;
+    font-family: var(--app-font-sans);
+    font-size: 0.95rem;
+    font-weight: 400;
+    letter-spacing: normal;
+    text-transform: none;
+    color: var(--pico-color);
+    border-radius: var(--app-radius-sm);
+
+    &:focus-visible {
+      box-shadow: var(--app-ring);
+    }
+
+    &[readonly] {
+      opacity: 0.7;
+      cursor: not-allowed;
+    }
+  }
+}
+
+.language-form__actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.6rem;
+}

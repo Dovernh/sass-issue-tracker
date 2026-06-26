@@ -1,0 +1,132 @@
+<div class="rte-toolbar">
+  <!-- Row 1: menubar -->
+  <div class="rte-toolbar__menubar">
+    <app-rte-menu label="Format" [items]="formatItems()" [disabled]="disabled()" />
+    <app-rte-menu label="Insert" [items]="insertItems()" [disabled]="disabled()" />
+  </div>
+
+  <!-- Row 2: toolbar -->
+  <div class="rte-toolbar__bar" role="toolbar" [attr.aria-label]="label() + ' formatting'">
+    <div class="rte-toolbar__group">
+      <button
+        type="button"
+        class="rte-toolbar__btn"
+        [disabled]="disabled() || !state().canUndo"
+        title="Undo (⌘Z)"
+        aria-label="Undo"
+        (click)="undo()">
+        <i class="bi bi-arrow-counterclockwise" aria-hidden="true"></i>
+      </button>
+      <button
+        type="button"
+        class="rte-toolbar__btn"
+        [disabled]="disabled() || !state().canRedo"
+        title="Redo (⌘⇧Z)"
+        aria-label="Redo"
+        (click)="redo()">
+        <i class="bi bi-arrow-clockwise" aria-hidden="true"></i>
+      </button>
+    </div>
+
+    <span class="rte-toolbar__divider" role="separator" aria-orientation="vertical"></span>
+
+    <app-rte-menu
+      variant="toolbar"
+      [label]="blockLabel()"
+      title="Paragraph style"
+      [items]="styleItems()"
+      [disabled]="disabled()" />
+
+    <span class="rte-toolbar__divider" role="separator" aria-orientation="vertical"></span>
+
+    <div class="rte-toolbar__group">
+      <button
+        type="button"
+        class="rte-toolbar__btn"
+        [class.rte-toolbar__btn--active]="state().bold"
+        [attr.aria-pressed]="state().bold"
+        [disabled]="disabled()"
+        title="Bold (⌘B)"
+        aria-label="Bold"
+        (click)="toggleBold()">
+        <i class="bi bi-type-bold" aria-hidden="true"></i>
+      </button>
+      <button
+        type="button"
+        class="rte-toolbar__btn"
+        [class.rte-toolbar__btn--active]="state().italic"
+        [attr.aria-pressed]="state().italic"
+        [disabled]="disabled()"
+        title="Italic (⌘I)"
+        aria-label="Italic"
+        (click)="toggleItalic()">
+        <i class="bi bi-type-italic" aria-hidden="true"></i>
+      </button>
+      <button
+        type="button"
+        class="rte-toolbar__btn"
+        [class.rte-toolbar__btn--active]="state().underline"
+        [attr.aria-pressed]="state().underline"
+        [disabled]="disabled()"
+        title="Underline (⌘U)"
+        aria-label="Underline"
+        (click)="toggleUnderline()">
+        <i class="bi bi-type-underline" aria-hidden="true"></i>
+      </button>
+      <button
+        type="button"
+        class="rte-toolbar__btn"
+        [class.rte-toolbar__btn--active]="state().strike"
+        [attr.aria-pressed]="state().strike"
+        [disabled]="disabled()"
+        title="Strikethrough"
+        aria-label="Strikethrough"
+        (click)="toggleStrike()">
+        <i class="bi bi-type-strikethrough" aria-hidden="true"></i>
+      </button>
+    </div>
+
+    <span class="rte-toolbar__divider" role="separator" aria-orientation="vertical"></span>
+
+    <div class="rte-toolbar__group">
+      <button
+        type="button"
+        class="rte-toolbar__btn"
+        [class.rte-toolbar__btn--active]="state().bulletList"
+        [attr.aria-pressed]="state().bulletList"
+        [disabled]="disabled()"
+        title="Bullet list"
+        aria-label="Bullet list"
+        (click)="toggleBulletList()">
+        <i class="bi bi-list-ul" aria-hidden="true"></i>
+      </button>
+      <button
+        type="button"
+        class="rte-toolbar__btn"
+        [class.rte-toolbar__btn--active]="state().orderedList"
+        [attr.aria-pressed]="state().orderedList"
+        [disabled]="disabled()"
+        title="Numbered list"
+        aria-label="Numbered list"
+        (click)="toggleOrderedList()">
+        <i class="bi bi-list-ol" aria-hidden="true"></i>
+      </button>
+    </div>
+
+    <span class="rte-toolbar__divider" role="separator" aria-orientation="vertical"></span>
+
+    <div class="rte-toolbar__group">
+      <button
+        type="button"
+        class="rte-toolbar__btn"
+        [class.rte-toolbar__btn--active]="state().link"
+        [attr.aria-pressed]="state().link"
+        [disabled]="disabled()"
+        title="Link"
+        aria-label="Link"
+        (click)="setLink()">
+        <i class="bi bi-link-45deg" aria-hidden="true"></i>
+      </button>
+    </div>
+  </div>
+</div>

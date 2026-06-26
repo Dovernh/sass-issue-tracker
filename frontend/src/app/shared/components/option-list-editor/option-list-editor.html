@@ -1,0 +1,130 @@
+<div class="ole">
+  <!-- ── Master: option list ──────────────────────────────────────────────── -->
+  <div class="ole__list" role="list" [attr.aria-label]="entityLabel() + ' list'">
+    @for (item of items(); track item.id) {
+      <button
+        type="button"
+        role="listitem"
+        class="ole__row"
+        [class.ole__row--active]="!adding() && item.id === selectedId()"
+        [attr.aria-current]="!adding() && item.id === selectedId() ? 'true' : null"
+        (click)="select(item.id)"
+      >
+        <span class="ole__order" aria-hidden="true">{{ item.sortOrder }}</span>
+        <span class="ole__key">{{ item.key }}</span>
+        <span class="ole__name" [class.ole__name--empty]="!resolved(item)">
+          {{ resolved(item) || 'Untranslated' }}
+        </span>
+        <span class="ole__pips" [attr.aria-label]="completenessLabel(item)">
+          @for (l of languages(); track l.code) {
+            <span
+              class="ole__pip"
+              [class.ole__pip--on]="!!item.labels[l.code]?.trim()"
+              [title]="l.nativeName"
+            ></span>
+          }
+        </span>
+        <span class="ole__count" aria-hidden="true">{{ filled(item) }}/{{ languages().length }}</span>
+      </button>
+    }
+
+    @if (canManage()) {
+      <button type="button" class="ole__add" [class.ole__add--active]="adding()" (click)="startAdd()">
+        <i class="bi bi-plus-lg" aria-hidden="true"></i>
+        {{ addLabel() }}
+      </button>
+    }
+  </div>
+
+  <!-- ── Detail: translations for the selected/new option ─────────────────── -->
+  @if (current(); as opt) {
+    <section class="ole__detail" [attr.aria-label]="adding() ? 'New ' + entityLabel() : 'Edit ' + entityLabel()">
+      <header class="ole__detail-head">
+        <div class="ole__field">
+          <label class="ole__field-label" [attr.for]="'ole-key'">Key</label>
+          <input
+            id="ole-key"
+            class="ole__key-input"
+            type="text"
+            autocomplete="off"
+            spellcheck="false"
+            [value]="opt.key"
+            [readonly]="!canManage()"
+            (blur)="commitKey($any($event.target).value)"
+          />
+        </div>
+
+        <div class="ole__field ole__field--order">
+          <label class="ole__field-label" [attr.for]="'ole-order'">Order</label>
+          <input
+            id="ole-order"
+            class="ole__order-input"
+            type="number"
+            [value]="opt.sortOrder"
+            [readonly]="!canManage()"
+            (blur)="commitOrder($any($event.target).value)"
+          />
+        </div>
+      </header>
+
+      @let done = filled(opt);
+      @let total = languages().length;
+      <div class="ole__meter">
+        <div
+          class="ole__meter-track"
+          role="progressbar"
+          [attr.aria-valuenow]="done"
+          [attr.aria-valuemin]="0"
+          [attr.aria-valuemax]="total"
+          [attr.aria-label]="completenessLabel(opt)"
+        >
+          <span class="ole__meter-fill" [style.width.%]="total ? (done / total) * 100 : 0"></span>
+        </div>
+        <span class="ole__meter-label">{{ done }} / {{ total }} translated</span>
+      </div>
+
+      <div class="ole__langs">
+        @for (l of languages(); track l.code) {
+          <label class="ole__lang">
+            <span class="ole__lang-name">
+              {{ l.nativeName }}
+              <span class="ole__lang-code">{{ l.code }}</span>
+            </span>
+            <input
+              class="ole__lang-input"
+              type="text"
+              autocomplete="off"
+              placeholder="Not translated"
+              [value]="opt.labels[l.code] ?? ''"
+              [readonly]="!canManage()"
+              (blur)="commitLabel(l.code, $any($event.target).value)"
+            />
+          </label>
+        }
+      </div>
+
+      @if (adding()) {
+        @if (error()) {
+          <p class="ole__error" role="alert">
+            <i class="bi bi-exclamation-circle" aria-hidden="true"></i> {{ error() }}
+          </p>
+        }
+        <footer class="ole__detail-actions">
+          <button type="button" class="btn btn--secondary" (click)="cancelAdd()">Cancel</button>
+          <button type="button" class="btn btn--primary" (click)="submitDraft()">Create</button>
+        </footer>
+      } @else if (canManage()) {
+        <footer class="ole__detail-actions">
+          <button type="button" class="btn btn--danger-ghost" (click)="removeSelected()">
+            <i class="bi bi-trash3" aria-hidden="true"></i> Delete
+          </button>
+        </footer>
+      }
+    </section>
+  } @else {
+    <section class="ole__detail ole__detail--empty">
+      <i class="bi bi-translate" aria-hidden="true"></i>
+      <p>Select a row to edit its translations, or add a new {{ entityLabel() }}.</p>
+    </section>
+  }
+</div>

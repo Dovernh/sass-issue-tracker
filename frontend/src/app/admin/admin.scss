@@ -1,0 +1,51 @@
+.admin {
+  display: flex;
+  align-items: flex-start;
+  gap: 1.5rem;
+}
+.admin__nav {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  flex: 0 0 12rem;
+  border-right: 1px solid var(--app-border);
+  padding-right: 0.75rem;
+}
+.admin__body {
+  flex: 1 1 auto;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+.admin__link {
+  display: block;
+  padding: 0.5rem 0.75rem;
+  border-radius: 0.5rem;
+  color: var(--pico-color);
+  font-weight: 600;
+  text-decoration: none;
+}
+.admin__link:hover {
+  background: color-mix(in srgb, var(--app-primary) 12%, transparent);
+}
+.admin__link--active {
+  background: color-mix(in srgb, var(--app-primary) 18%, transparent);
+  color: var(--app-primary);
+}
+/* Stack the nav above the content on narrow screens. */
+@media (max-width: 640px) {
+  .admin {
+    flex-direction: column;
+    /* Stacked: stretch nav + body to full width (base layout top-aligns). */
+    align-items: stretch;
+  }
+  .admin__nav {
+    flex: 1 1 auto;
+    flex-direction: row;
+    flex-wrap: wrap;
+    border-right: none;
+    border-bottom: 1px solid var(--app-border);
+    padding-right: 0;
+    padding-bottom: 0.5rem;
+  }
+}

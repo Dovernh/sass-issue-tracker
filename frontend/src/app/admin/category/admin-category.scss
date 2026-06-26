@@ -1,0 +1,4 @@
+@use '../admin-page' as admin;
+
+// Shared admin list-page styles (header, actions, status/empty, spinner).
+@include admin.page;

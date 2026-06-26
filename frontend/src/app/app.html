@@ -1,0 +1,31 @@
+<app-navbar (login)="loginOpen.set(true)" />
+
+<main class="landing">
+  @if (auth.isSignedIn()) {
+    <router-outlet />
+  } @else {
+    <section class="landing__hero">
+      <h1>{{ 'hero.title' | translate }}</h1>
+      <p class="landing__tagline">{{ 'hero.tagline' | translate }}</p>
+      <p class="landing__body">{{ 'hero.body' | translate }}</p>
+      <button type="button" class="landing__prompt" (click)="loginOpen.set(true)">
+        {{ 'actions.signInPrompt' | translate }}
+      </button>
+    </section>
+  }
+</main>
+
+<app-modal
+  [open]="loginOpen()"
+  [dismissable]="false"
+  [label]="'login.heading' | translate"
+  (closed)="loginOpen.set(false)"
+>
+  @if (loginOpen()) {
+    <app-login (loggedIn)="onLoggedIn()" (cancelled)="loginOpen.set(false)" />
+  }
+</app-modal>
+
+<app-confirm-dialog />
+
+<app-toast />

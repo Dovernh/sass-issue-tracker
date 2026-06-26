@@ -1,0 +1,190 @@
+{
+  "nav": {
+    "menu": "Menú",
+    "dashboard": "Panel",
+    "issues": "Incidencias",
+    "admin": "Administración",
+    "organizations": "Organizaciones",
+    "switchOrg": "Cambiar organización"
+  },
+  "dashboard": {
+    "totalIssues": "Total de incidencias",
+    "noIssues": "Aún no hay incidencias — crea una para ver los gráficos aquí."
+  },
+  "admin": {
+    "users": "Usuarios",
+    "permissions": "Permisos",
+    "priority": "Prioridad",
+    "category": "Categoría",
+    "language": "Idiomas",
+    "roles": "Roles",
+    "comingSoon": "Esta pantalla estará disponible pronto."
+  },
+  "actions": {
+    "exportCsv": "Exportar CSV",
+    "print": "Imprimir",
+    "login": "Iniciar sesión",
+    "logout": "Cerrar sesión",
+    "signInPrompt": "Inicie sesión para comenzar.",
+    "actions": "Acciones"
+  },
+  "common": {
+    "add": "Añadir",
+    "cancel": "Cancelar",
+    "delete": "Eliminar",
+    "edit": "Editar",
+    "view": "Ver",
+    "rename": "Renombrar",
+    "enableDisable": "Activar/Desactivar",
+    "resetPassword": "Restablecer contraseña",
+    "retry": "Reintentar",
+    "save": "Guardar",
+    "create": "Crear",
+    "update": "Actualizar",
+    "loadError": "No se pudieron cargar los datos.",
+    "name": "Nombre",
+    "email": "Correo electrónico",
+    "role": "Rol",
+    "status": "Estado",
+    "created": "Creado",
+    "joined": "Se unió",
+    "yes": "Sí",
+    "no": "No"
+  },
+  "hero": {
+    "body": "Issue Tracker es una plataforma centralizada para registrar, clasificar y supervisar las incidencias que reportan sus clientes. Capture cada informe, asigne responsables, siga cada incidencia a lo largo de su ciclo de vida y mantenga a todo su equipo alineado sobre su estado actual.",
+    "tagline": "Realice un seguimiento de las incidencias de sus clientes y su estado, desde el primer informe hasta su resolución.",
+    "title": "Bienvenido"
+  },
+  "issues": {
+    "add": "Añadir incidencia",
+    "assignee": "Asignado a",
+    "assigneePlaceholder": "ID de usuario (opcional)",
+    "category": "Categoría",
+    "id": "ID",
+    "deleteTitle": "Eliminar incidencia",
+    "deleteMessage": "¿Eliminar la incidencia n.º {{id}}? Esta acción no se puede deshacer.",
+    "create": "Crear incidencia",
+    "description": "Descripción",
+    "edit": "Editar incidencia",
+    "empty": "Aún no hay incidencias. Cree la primera arriba.",
+    "heading": "Incidencias",
+    "byStatus": "Incidencias por estado",
+    "byPriority": "Incidencias por prioridad",
+    "loadError": "No se pudieron cargar las incidencias.",
+    "loading": "Cargando incidencias…",
+    "new": "Nueva incidencia",
+    "priority": "Prioridad",
+    "status": "Estado",
+    "statuses": {
+      "closed": "Cerrada",
+      "in_progress": "En curso",
+      "open": "Abierta",
+      "resolved": "Resuelta"
+    },
+    "update": "Actualizar incidencia"
+  },
+  "language": {
+    "label": "Idioma"
+  },
+  "login": {
+    "email": "Correo electrónico",
+    "emailPlaceholder": "tu@ejemplo.com",
+    "errors": {
+      "emailInvalid": "Introduzca un correo electrónico válido",
+      "emailRequired": "El correo electrónico es obligatorio",
+      "generic": "No se pudo iniciar sesión.",
+      "passwordRequired": "La contraseña es obligatoria"
+    },
+    "heading": "Iniciar sesión",
+    "hidePassword": "Ocultar contraseña",
+    "password": "Contraseña",
+    "passwordPlaceholder": "Su contraseña",
+    "showPassword": "Mostrar contraseña",
+    "submit": "Iniciar sesión",
+    "subtitle": "Bienvenido de nuevo: inicie sesión para continuar."
+  },
+  "profile": {
+    "changePhoto": "Cambiar foto de perfil",
+    "menu": "Menú de cuenta"
+  },
+  "theme": {
+    "toggle": "Cambiar tema claro/oscuro"
+  },
+  "priorities": {
+    "heading": "Prioridades",
+    "add": "Añadir prioridad",
+    "loading": "Cargando prioridades…",
+    "loadError": "No se pudieron cargar las prioridades.",
+    "empty": "Aún no hay prioridades. Crea la primera abajo.",
+    "edit": "Editar prioridad",
+    "new": "Nueva prioridad",
+    "newPriority": "Nueva prioridad",
+    "key": "Clave",
+    "labels": "Etiquetas",
+    "order": "Orden",
+    "editHint": "Haz doble clic en una celda para editar; los cambios se guardan solos. Usa la fila inferior para añadir."
+  },
+  "languages": {
+    "heading": "Idiomas",
+    "loading": "Cargando idiomas…",
+    "loadError": "No se pudieron cargar los idiomas.",
+    "empty": "No hay idiomas configurados.",
+    "add": "Añadir idioma",
+    "new": "Nuevo idioma",
+    "newLanguage": "Nuevo idioma",
+    "edit": "Editar idioma",
+    "code": "Código",
+    "name": "Nombre",
+    "nativeName": "Nombre nativo",
+    "enabled": "Activado",
+    "order": "Orden"
+  },
+  "categories": {
+    "heading": "Categorías",
+    "add": "Añadir categoría",
+    "new": "Nueva categoría",
+    "loading": "Cargando categorías…",
+    "loadError": "No se pudieron cargar las categorías.",
+    "empty": "Aún no hay categorías. Crea la primera abajo.",
+    "edit": "Editar categoría",
+    "newCategory": "Nueva categoría",
+    "key": "Clave",
+    "labels": "Etiquetas",
+    "order": "Orden",
+    "editHint": "Haz doble clic en una celda para editar; los cambios se guardan solos. Usa la fila inferior para añadir."
+  },
+  "owner": {
+    "organization": "Organización",
+    "members": "Miembros",
+    "admins": "Administradores"
+  },
+  "permissions": {
+    "member": "Miembro",
+    "editMember": "Editar miembro",
+    "roleResetHint": "Cambiar el rol restablece los permisos de este miembro a los valores predeterminados de ese rol."
+  },
+  "users": {
+    "add": "Añadir usuario",
+    "edit": "Editar usuario",
+    "tempPassword": "Contraseña temporal",
+    "tempPasswordHint": "Al menos 8 caracteres. Compártela con el usuario; podrá cambiarla más tarde.",
+    "newPassword": "Nueva contraseña",
+    "passwordHint": "Al menos 8 caracteres."
+  },
+  "roles": {
+    "heading": "Roles y permisos",
+    "description": "Personaliza lo que pueden hacer los miembros. Los administradores siempre tienen acceso completo; los visores son de solo lectura.",
+    "memberRole": "Rol de miembro",
+    "loading": "Cargando roles…",
+    "saved": "Permisos de miembro actualizados.",
+    "saveError": "No se pudieron actualizar los permisos de miembro.",
+    "permDashboardView": "Ver panel",
+    "permTasksView": "Ver incidencias",
+    "permTasksCreate": "Crear incidencias",
+    "permTasksEdit": "Editar incidencias",
+    "permTasksDelete": "Eliminar incidencias",
+    "permMembersView": "Ver miembros",
+    "permSettingsView": "Ver configuración"
+  }
+}

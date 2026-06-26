@@ -1,0 +1,93 @@
+.landing {
+  margin: 0 auto;
+  padding: 2.75rem 1.25rem 4rem;
+}
+
+.landing__hero {
+  position: relative;
+  text-align: center;
+  padding: 12rem 1.5rem 4rem;
+  border-radius: var(--app-radius);
+  overflow: hidden;
+  background-color: var(--pico-card-background-color);
+  background-image:
+    radial-gradient(
+      120% 90% at 50% -10%,
+      var(--app-primary-soft) 0%,
+      transparent 60%
+    ),
+    url('/issue-icon.svg');
+  background-size: auto, 128px;
+  background-position:
+    center top,
+    center 3rem;
+  background-repeat: no-repeat;
+  border: 1px solid var(--app-border);
+  box-shadow: var(--app-shadow-md);
+
+  h1 {
+    margin: 0 0 0.5rem;
+    font-size: clamp(2rem, 5vw, 2.8rem);
+    color: var(--pico-color);
+  }
+
+  p {
+    margin: 0;
+    color: var(--pico-muted-color);
+  }
+}
+
+.landing__tagline {
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: var(--pico-color) !important;
+  margin-bottom: 1rem !important;
+}
+
+.landing__body {
+  max-width: 620px;
+  margin: 0 auto 1.5rem !important;
+  line-height: 1.65;
+}
+
+.landing__prompt {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  width: auto;
+  margin-top: 0.5rem;
+  padding: 0.7rem 1.5rem;
+  border: none;
+  border-radius: 999px;
+  background: var(--app-primary);
+  color: var(--app-on-primary);
+  font-family: var(--app-font-sans);
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: var(--app-shadow-sm);
+  transition:
+    transform 0.15s ease,
+    box-shadow 0.15s ease,
+    background-color 0.15s ease;
+
+  &::after {
+    content: '\2192'; /* → */
+    transition: transform 0.15s ease;
+  }
+
+  &:hover {
+    background: var(--app-primary-hover);
+    transform: translateY(-2px);
+    box-shadow: var(--app-shadow-md);
+  }
+
+  &:hover::after {
+    transform: translateX(3px);
+  }
+
+  &:focus-visible {
+    outline: none;
+    box-shadow: var(--app-ring);
+  }
+}

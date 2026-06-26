@@ -1,0 +1,77 @@
+<section class="dashboard">
+  <header class="dashboard__header">
+    <h1 class="dashboard__title">{{ 'nav.dashboard' | translate }}</h1>
+
+    <div class="dashboard__header-right">
+      <p class="dashboard__total">
+        {{ 'dashboard.totalIssues' | translate }}: <strong>{{ total() }}</strong>
+      </p>
+
+      @if (total() > 0) {
+        <div class="dashboard__actions">
+          <button type="button" class="btn btn--ghost" (click)="exportCsv()">
+            <i class="bi bi-filetype-csv" aria-hidden="true"></i> {{ 'actions.exportCsv' | translate }}
+          </button>
+
+          <button type="button" class="btn btn--ghost" (click)="print()">
+            <i class="bi bi-printer" aria-hidden="true"></i> {{ 'actions.print' | translate }}
+          </button>
+        </div>
+      }
+    </div>
+  </header>
+
+  @if (total() > 0) {
+    <!-- Print-only report header + summary table (charts below also print) -->
+    <section class="print-report">
+      <header class="print-report__head">
+        <h1 class="print-report__title">{{ 'nav.dashboard' | translate }}</h1>
+        <p class="print-report__meta">
+          {{ reportDate() }} · {{ 'dashboard.totalIssues' | translate }}: {{ total() }}
+        </p>
+      </header>
+      <table class="print-report__table">
+        <thead>
+          <tr><th>{{ 'issues.status' | translate }}/{{ 'issues.priority' | translate }}</th><th></th><th>#</th></tr>
+        </thead>
+        <tbody>
+          @for (row of summaryRows(); track row.key) {
+            <tr><td>{{ row.metric }}</td><td>{{ row.label }}</td><td>{{ row.count }}</td></tr>
+          }
+        </tbody>
+      </table>
+    </section>
+
+    <div class="dashboard__grid">
+      <article class="dashboard__card">
+        <h2 class="dashboard__card-title">{{ 'issues.byStatus' | translate }}</h2>
+        <div class="dashboard__chart">
+          <canvas
+            baseChart
+            role="img"
+            [attr.aria-label]="('issues.byStatus' | translate) + '. ' + statusSummary()"
+            [type]="'pie'"
+            [data]="statusChartData()"
+            [options]="chartOptions()"
+          ></canvas>
+        </div>
+      </article>
+
+      <article class="dashboard__card">
+        <h2 class="dashboard__card-title">{{ 'issues.byPriority' | translate }}</h2>
+        <div class="dashboard__chart">
+          <canvas
+            baseChart
+            role="img"
+            [attr.aria-label]="('issues.byPriority' | translate) + '. ' + prioritySummary()"
+            [type]="'pie'"
+            [data]="priorityChartData()"
+            [options]="chartOptions()"
+          ></canvas>
+        </div>
+      </article>
+    </div>
+  } @else {
+    <p>{{ 'dashboard.noIssues' | translate }}</p>
+  }
+</section>

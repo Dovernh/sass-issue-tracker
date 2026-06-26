@@ -1,0 +1,26 @@
+<section class="admin">
+  <nav class="admin__nav" aria-label="Admin">
+    <a routerLink="users" routerLinkActive="admin__link--active" class="admin__link">
+      {{ 'admin.users' | translate }}
+    </a>
+    <a routerLink="permissions" routerLinkActive="admin__link--active" class="admin__link">
+      {{ 'admin.permissions' | translate }}
+    </a>
+    <a routerLink="priority" routerLinkActive="admin__link--active" class="admin__link">
+      {{ 'admin.priority' | translate }}
+    </a>
+    <a routerLink="category" routerLinkActive="admin__link--active" class="admin__link">
+      {{ 'admin.category' | translate }}
+    </a>
+    <a routerLink="language" routerLinkActive="admin__link--active" class="admin__link">
+      {{ 'admin.language' | translate }}
+    </a>
+    <a routerLink="roles" routerLinkActive="admin__link--active" class="admin__link">
+      {{ 'admin.roles' | translate }}
+    </a>
+  </nav>
+
+  <div class="admin__body">
+    <router-outlet />
+  </div>
+</section>

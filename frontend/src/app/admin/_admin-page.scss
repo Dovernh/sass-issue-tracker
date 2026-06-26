@@ -1,0 +1,105 @@
+// Shared styles for admin list pages (priority, category, …). Bring into a
+// component stylesheet with:
+//
+//   @use '../admin-page' as admin;
+//   @include admin.page;
+//
+// Markup contract — the page uses these generic classes:
+//   .admin-page                       page container (column flex)
+//   .admin-page__header               title + actions row
+//   .admin-page__title                <h1>
+//   .admin-page__actions              header action cluster
+//   .admin-page__status[ --error]     loading / error line
+//   .admin-page__retry                retry button in the error line
+//   .admin-page__empty                empty state
+//   .spinner                          loading spinner
+
+@mixin page {
+  .admin-page {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .admin-page__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+  }
+
+  .admin-page__title {
+    margin: 0;
+    font-size: 1.6rem;
+  }
+
+  .admin-page__actions {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+  }
+
+  .admin-page__hint {
+    margin: 0;
+    font-size: 0.85rem;
+    color: var(--pico-muted-color);
+  }
+
+  // ── Status / empty states ──────────────────────────────────────────────────
+  .admin-page__status {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    margin: 0;
+    color: var(--pico-muted-color);
+  }
+
+  .admin-page__status--error {
+    color: var(--app-danger);
+  }
+
+  .admin-page__retry {
+    margin: 0 0 0 0.25rem;
+    padding: 0.25rem 0.75rem;
+    width: auto;
+    font-size: 0.85rem;
+  }
+
+  .admin-page__empty {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 4rem 1.5rem;
+    border: 1px dashed var(--app-border);
+    border-radius: var(--app-radius);
+    background: var(--app-surface-sunken);
+    color: var(--pico-muted-color);
+    text-align: center;
+
+    i {
+      font-size: 2rem;
+      opacity: 0.6;
+    }
+
+    p {
+      margin: 0;
+    }
+  }
+
+  .spinner {
+    width: 1.05rem;
+    height: 1.05rem;
+    border: 2px solid var(--app-border);
+    border-top-color: var(--app-primary);
+    border-radius: 50%;
+    animation: spin 0.7s linear infinite;
+  }
+
+  @keyframes spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+}

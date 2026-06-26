@@ -1,0 +1,69 @@
+<section class="admin-page">
+  <header class="admin-page__header">
+    <h1 class="admin-page__title">{{ 'languages.heading' | translate }}</h1>
+
+    <div class="admin-page__actions">
+      <app-actions-menu [label]="'actions.actions' | translate">
+        <button *appPermissions="'org:settings:manage'" type="button" class="grid-actions-menu__item" (click)="openLanguage(null)">
+          <i class="bi bi-plus-lg" aria-hidden="true"></i>
+          {{ 'languages.add' | translate }}
+        </button>
+
+        @if (languages.value().length) {
+          <button type="button" class="grid-actions-menu__item" (click)="exportCsv()">
+            <i class="bi bi-filetype-csv" aria-hidden="true"></i>
+            {{ 'actions.exportCsv' | translate }}
+          </button>
+
+          <button type="button" class="grid-actions-menu__item" (click)="print()">
+            <i class="bi bi-printer" aria-hidden="true"></i>
+            {{ 'actions.print' | translate }}
+          </button>
+        }
+      </app-actions-menu>
+    </div>
+  </header>
+
+  @if (languages.isLoading()) {
+    <p class="admin-page__status" aria-live="polite">
+      <span class="spinner" aria-hidden="true"></span>
+      {{ 'languages.loading' | translate }}
+    </p>
+  } @else if (languages.error()) {
+    <p class="admin-page__status admin-page__status--error" role="alert">
+      <i class="bi bi-exclamation-octagon" aria-hidden="true"></i>
+
+      {{ 'languages.loadError' | translate }}
+
+      <button type="button" class="admin-page__retry" (click)="languages.reload()">
+        {{ 'common.retry' | translate }}
+      </button>
+    </p>
+  } @else if (!languages.value().length) {
+    <div class="admin-page__empty">
+      <i class="bi bi-inbox" aria-hidden="true"></i>
+      <p>{{ 'languages.empty' | translate }}</p>
+    </div>
+  } @else {
+    <app-grid
+      [rowData]="languages.value()"
+      [colDefs]="columns()"
+      [actions]="gridActions()"
+      (action)="onGridAction($event)"
+    />
+  }
+</section>
+
+<app-modal
+  [open]="addOpen()"
+  size="xl"
+  [label]="'languages.newLanguage' | translate"
+  (closed)="closeLanguage(false)"
+>
+  <app-create-edit-language
+    [selectedLanguage]="selectedLanguage()"
+    (added)="closeLanguage(true)"
+    (cancelled)="closeLanguage(false)"
+  />
+</app-modal>
+

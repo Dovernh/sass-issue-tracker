@@ -1,0 +1,94 @@
+<section class="issues">
+  <header class="issues__header">
+    <h1 class="issues__title">{{ 'issues.heading' | translate }}</h1>
+
+    <div class="issues__actions">
+      @if (issues.value().length) {
+        <button type="button" class="btn btn--ghost" (click)="exportCsv()">
+          <i class="bi bi-filetype-csv" aria-hidden="true"></i>
+          {{ 'actions.exportCsv' | translate }}
+        </button>
+
+        <button type="button" class="btn btn--ghost" (click)="print()">
+          <i class="bi bi-printer" aria-hidden="true"></i> {{ 'actions.print' | translate }}
+        </button>
+      }
+      <button *appPermissions="'org:tasks:create'" type="button" class="btn btn--primary" (click)="openIssue(null)">
+        {{ 'issues.add' | translate }}
+      </button>
+    </div>
+  </header>
+
+  @if (issues.isLoading()) {
+    <p class="issues__status" aria-live="polite">
+      <span class="spinner" aria-hidden="true"></span>
+      {{ 'issues.loading' | translate }}
+    </p>
+  } @else if (issues.error()) {
+    <p class="issues__status issues__status--error" role="alert">
+      <i class="bi bi-exclamation-octagon" aria-hidden="true"></i>
+
+      {{ 'issues.loadError' | translate }}
+
+      <button type="button" class="issues__retry" (click)="issues.reload()">
+        {{ 'common.retry' | translate }}
+      </button>
+    </p>
+  } @else if (!issues.value().length) {
+    <div class="issues__empty">
+      <i class="bi bi-inbox" aria-hidden="true"></i>
+      <p>{{ 'issues.empty' | translate }}</p>
+    </div>
+  } @else {
+    <app-grid
+      [rowData]="rows()"
+      [colDefs]="issueColumns()"
+      [actions]="gridActions()"
+      (action)="onGridAction($event)"
+    />
+  }
+</section>
+
+<section class="print-report">
+  <header class="print-report__head">
+    <h1 class="print-report__title">{{ 'issues.heading' | translate }}</h1>
+    <p class="print-report__meta">
+      {{ reportDate() }} · {{ issues.value().length }} {{ 'issues.heading' | translate }}
+    </p>
+  </header>
+
+  <table class="print-report__table">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>{{ 'issues.description' | translate }}</th>
+        <th>{{ 'issues.priority' | translate }}</th>
+        <th>{{ 'issues.category' | translate }}</th>
+        <th>{{ 'issues.status' | translate }}</th>
+        <th>{{ 'issues.assignee' | translate }}</th>
+        <th>Created</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (i of rows(); track i.id) {
+        <tr>
+          <td>{{ i.id }}</td>
+          <td>{{ i.descriptionText }}</td>
+          <td>{{ i.priorityLabel }}</td>
+          <td>{{ i.categoryLabel }}</td>
+          <td>{{ 'issues.statuses.' + i.status | translate }}</td>
+          <td>{{ i.assignedUserName || '—' }}</td>
+          <td>{{ i.createdAt }}</td>
+        </tr>
+      }
+    </tbody>
+  </table>
+</section>
+
+<app-modal [open]="addOpen()" size="xl" [label]="'issues.new' | translate" (closed)="closeIssue(false)">
+  <app-create-edit-issue
+    [selectedIssue]="selectedIssue()"
+    (added)="closeIssue(true)"
+    (cancelled)="closeIssue(false)"
+  />
+</app-modal>

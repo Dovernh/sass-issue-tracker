@@ -1,0 +1,66 @@
+<section class="perms">
+  <h2 class="perms__title">{{ 'admin.permissions' | translate }}</h2>
+
+  @if (members.isLoading()) {
+    <p aria-live="polite"><span class="spinner" aria-hidden="true"></span> Loading…</p>
+  } @else if (members.error()) {
+    <p class="form-error" role="alert">
+      {{ 'common.loadError' | translate }}
+      <button type="button" class="btn btn--ghost" (click)="members.reload()">
+        {{ 'common.retry' | translate }}
+      </button>
+    </p>
+  } @else {
+    <app-grid
+      [rowData]="members.value()"
+      [colDefs]="columns()"
+      [actions]="actions()"
+      (action)="onAction($event)"
+    />
+  }
+</section>
+
+<!-- View member -->
+<app-modal [open]="!!viewing()" size="sm" [label]="'permissions.member' | translate" (closed)="viewing.set(null)">
+  @if (viewing(); as m) {
+    <div class="perms-view">
+      <h2 class="perms-view__title">{{ m.name || m.email }}</h2>
+      <dl class="perms-view__meta">
+        <dt>{{ 'common.email' | translate }}</dt><dd>{{ m.email }}</dd>
+        <dt>{{ 'common.role' | translate }}</dt><dd>{{ m.role }}</dd>
+      </dl>
+      <h3 class="perms-view__h3">{{ 'admin.permissions' | translate }}</h3>
+      <div class="perms-view__chips">
+        @for (p of m.permissions; track p) {
+          <span class="perms-view__chip">{{ p }}</span>
+        } @empty {
+          <span>—</span>
+        }
+      </div>
+    </div>
+  }
+</app-modal>
+
+<!-- Edit role -->
+<app-modal [open]="!!editing()" size="sm" [label]="'permissions.editMember' | translate" (closed)="editing.set(null)">
+  @if (editing(); as m) {
+    <form class="perms-form" (submit)="$event.preventDefault(); saveEdit()">
+      <h2 class="perms-form__title">{{ 'common.edit' | translate }} {{ m.email }}</h2>
+      <label class="perms-form__field">
+        <span>{{ 'common.role' | translate }}</span>
+        <select (change)="editRole.set($any($event.target).value)">
+          @for (r of roles; track r) {
+            <option [value]="r" [selected]="r === editRole()">{{ r }}</option>
+          }
+        </select>
+        <small>{{ 'permissions.roleResetHint' | translate }}</small>
+      </label>
+      <div class="perms-form__actions">
+        <button type="button" class="btn btn--ghost" (click)="editing.set(null)">
+          {{ 'common.cancel' | translate }}
+        </button>
+        <button type="submit" class="btn btn--primary">{{ 'common.save' | translate }}</button>
+      </div>
+    </form>
+  }
+</app-modal>

@@ -1,0 +1,87 @@
+.modal {
+  /* Anchored near the top (not perfectly centered) so the card's top edge stays
+     put when its height changes — e.g. when a field validation error appears —
+     instead of re-centering and visibly jumping. */
+  padding: clamp(1.5rem, 12vh, 7rem) 1.25rem 1.5rem;
+  border: none;
+  background: transparent;
+  color: var(--pico-color);
+  align-items: flex-start;
+  justify-content: center;
+  overflow-y: auto;
+
+  &::backdrop {
+    background: rgb(0 0 0 / 50%);
+    backdrop-filter: blur(2px);
+  }
+}
+
+.modal__panel {
+  position: relative;
+  width: 100%;
+  max-width: min(92vw, 560px);
+  padding: 1.75rem;
+  border: 1px solid var(--app-border);
+  border-radius: var(--app-radius);
+  background: var(--pico-card-background-color);
+  box-shadow: var(--app-shadow-lg);
+  animation: modal-in 0.22s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+.modal__panel--sm {
+  max-width: min(92vw, 520px);
+}
+
+.modal__panel--md {
+  max-width: min(92vw, 680px);
+}
+
+.modal__panel--lg {
+  max-width: min(92vw, 880px);
+}
+
+.modal__panel--xl {
+  max-width: min(92vw, 1140px);
+}
+
+@keyframes modal-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px) scale(0.98);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .modal__panel {
+    animation: none;
+  }
+}
+
+.modal__close,
+.modal__close:is(:hover, :active, :focus) {
+  position: absolute;
+  top: 0.75rem;
+  right: 0.75rem;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  margin: 0;
+  padding: 0;
+  border: none;
+  border-radius: var(--app-radius-sm);
+  background: transparent;
+  color: var(--app-muted);
+  font-size: 1.05rem;
+  cursor: pointer;
+  transition:
+    background 0.15s ease,
+    color 0.15s ease;
+}
+
+.modal__close:is(:hover, :focus-visible) {
+  background: var(--app-surface-sunken);
+  color: var(--app-text);
+}

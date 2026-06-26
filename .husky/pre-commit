@@ -1,0 +1,8 @@
+echo "▶ Linting frontend…"
+npm run lint || exit 1
+
+echo "▶ Type-checking backend…"
+npm run typecheck || exit 1
+
+echo "▶ Running unit tests (frontend + backend)…"
+npm test || exit 1

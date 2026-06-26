@@ -1,0 +1,43 @@
+<section class="roles">
+  <header class="roles__header">
+    <h1 class="roles__title">{{ 'roles.heading' | translate }}</h1>
+  </header>
+
+  <p class="roles__intro">{{ 'roles.description' | translate }}</p>
+
+  @if (loading()) {
+    <p class="roles__status" aria-live="polite">
+      <span class="spinner" aria-hidden="true"></span>
+      {{ 'roles.loading' | translate }}
+    </p>
+  } @else if (error()) {
+    <p class="roles__status roles__status--error" role="alert">
+      <i class="bi bi-exclamation-octagon" aria-hidden="true"></i>
+      {{ 'common.loadError' | translate }}
+    </p>
+  } @else {
+    <fieldset class="roles__list">
+      <legend class="roles__legend">{{ 'roles.memberRole' | translate }}</legend>
+      @for (perm of available(); track perm) {
+        <label class="roles__item">
+          <input
+            type="checkbox"
+            [checked]="isGranted(perm)"
+            [disabled]="saving()"
+            (change)="toggle(perm, $any($event.target).checked)"
+          />
+          <span>{{ labelKey(perm) | translate }}</span>
+        </label>
+      }
+    </fieldset>
+
+    <div class="roles__actions" *appPermissions="'org:members:manage'">
+      <button type="button" class="btn btn--ghost" [disabled]="saving() || !dirty()" (click)="cancel()">
+        {{ 'common.cancel' | translate }}
+      </button>
+      <button type="button" class="btn btn--primary" [disabled]="saving() || !dirty()" (click)="save()">
+        {{ 'common.save' | translate }}
+      </button>
+    </div>
+  }
+</section>

@@ -1,0 +1,15 @@
+<ag-grid-angular
+  class="data-grid"
+  [theme]="theme()"
+  [columnDefs]="columns()"
+  [rowData]="rowData()"
+  [pinnedBottomRowData]="pinnedBottom()"
+  [pagination]="true"
+  [paginationPageSize]="10"
+  [paginationPageSizeSelector]="[10, 20, 50]"
+  [rowHeight]="40"
+  [animateRows]="true"
+  [stopEditingWhenCellsLoseFocus]="true"
+  (gridReady)="onGridReady($event)"
+  (cellValueChanged)="onCellValueChanged($event)">
+</ag-grid-angular>

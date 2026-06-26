@@ -1,0 +1,22 @@
+.actions-menu {
+  position: relative;
+  display: inline-block;
+}
+.actions-menu__caret {
+  font-size: 0.75rem;
+}
+.actions-menu__panel {
+  position: absolute;
+  top: calc(100% + 0.25rem);
+  right: 0;
+  z-index: 1000;
+  min-width: 12rem;
+  padding: 0.3rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+  background: var(--app-surface);
+  border: 1px solid var(--app-border);
+  border-radius: 0.5rem;
+  box-shadow: var(--app-shadow-md, 0 8px 24px rgb(0 0 0 / 0.18));
+}

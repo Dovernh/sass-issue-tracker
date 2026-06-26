@@ -1,0 +1,50 @@
+<form [formRoot]="createForm" class="language-form">
+  @if (isEdit()) {
+    <h2>{{ 'languages.edit' | translate }}</h2>
+  } @else {
+    <h2>{{ 'languages.new' | translate }}</h2>
+  }
+
+  <label>
+    <span class="language-form__label">
+      {{ 'languages.code' | translate }}
+      <span class="required" aria-hidden="true">*</span>
+    </span>
+    <input [formField]="createForm.code" type="text" autocomplete="off" [readOnly]="isEdit()" />
+  </label>
+
+  <label>
+    <span class="language-form__label">
+      {{ 'languages.name' | translate }}
+      <span class="required" aria-hidden="true">*</span>
+    </span>
+    <input [formField]="createForm.name" type="text" autocomplete="off" />
+  </label>
+
+  <label>
+    <span class="language-form__label">
+      {{ 'languages.nativeName' | translate }}
+      <span class="required" aria-hidden="true">*</span>
+    </span>
+    <input [formField]="createForm.nativeName" type="text" autocomplete="off" />
+  </label>
+
+  <label>
+    <span class="language-form__label">{{ 'languages.order' | translate }}</span>
+    <input [formField]="createForm.sortOrder" type="number" />
+  </label>
+
+  <div class="language-form__actions">
+    <button class="btn btn--secondary" type="button" (click)="cancelled.emit()">
+      {{ 'common.cancel' | translate }}
+    </button>
+
+    <button class="btn btn--primary" type="submit">
+      @if (isEdit()) {
+        {{ 'common.update' | translate }}
+      } @else {
+        {{ 'common.create' | translate }}
+      }
+    </button>
+  </div>
+</form>

@@ -1,0 +1,20 @@
+{
+  "name": "saas-issue-tracker",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Saas Issue tracker — Angular frontend + Node/Express backend.",
+  "scripts": {
+    "prepare": "husky",
+    "lint": "npm --prefix frontend run lint",
+    "typecheck": "npm --prefix backend run typecheck",
+    "gen:api": "npm --prefix backend run openapi:gen && npm --prefix frontend run gen:api",
+    "start": "npm --prefix frontend start & npm --prefix backend run start",
+    "test": "npm --prefix frontend test -- --watch=false && npm --prefix backend test"
+  },
+  "engines": {
+    "node": ">=24"
+  },
+  "devDependencies": {
+    "husky": "^9.1.7"
+  }
+}

@@ -1,0 +1,122 @@
+:host {
+  position: relative;
+  display: inline-flex;
+}
+
+.rte-menu__trigger {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  height: 1.9rem;
+  padding: 0 0.45rem;
+  border: 1px solid transparent;
+  border-radius: var(--app-radius-sm);
+  background: transparent;
+  color: var(--app-text);
+  font: inherit;
+  font-size: 0.85rem;
+  line-height: 1;
+  cursor: pointer;
+  transition:
+    background-color 0.12s ease,
+    border-color 0.12s ease;
+
+  &:hover:not(:disabled),
+  &--open {
+    background: color-mix(in srgb, var(--app-text) 9%, transparent);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--app-primary);
+    outline-offset: 1px;
+  }
+
+  &:disabled {
+    color: var(--app-muted);
+    cursor: not-allowed;
+  }
+
+  /* The compact toolbar trigger (e.g. the block-style "Formats" picker) reads
+     as a field, so it keeps a min width and a subtle border. */
+  &--toolbar {
+    min-width: 7rem;
+    justify-content: space-between;
+    border-color: var(--app-border);
+    background: var(--pico-card-background-color, #fff);
+  }
+}
+
+.rte-menu__caret {
+  font-size: 0.6rem;
+  color: var(--app-muted);
+}
+
+.rte-menu__popup {
+  position: absolute;
+  top: calc(100% + 0.25rem);
+  left: 0;
+  z-index: 20;
+  min-width: 12rem;
+  padding: 0.25rem;
+  border: 1px solid var(--app-border);
+  border-radius: var(--app-radius);
+  background: var(--pico-card-background-color, #fff);
+  box-shadow: var(--app-shadow-lg);
+}
+
+.rte-menu__item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  width: 100%;
+  padding: 0.35rem 0.5rem;
+  border: 0;
+  border-radius: var(--app-radius-sm);
+  background: transparent;
+  color: var(--app-text);
+  font: inherit;
+  font-size: 0.85rem;
+  text-align: left;
+  cursor: pointer;
+
+  &:hover:not(:disabled),
+  &:focus-visible {
+    background: var(--app-primary-soft);
+    outline: none;
+  }
+
+  &--active {
+    color: var(--app-primary);
+    font-weight: 600;
+  }
+
+  &:disabled {
+    color: var(--app-muted);
+    cursor: not-allowed;
+  }
+}
+
+.rte-menu__check {
+  display: inline-flex;
+  justify-content: center;
+  width: 1rem;
+  color: var(--app-primary);
+}
+
+.rte-menu__item-icon {
+  width: 1rem;
+  text-align: center;
+}
+
+.rte-menu__shortcut {
+  margin-left: auto;
+  padding-left: 1rem;
+  color: var(--app-muted);
+  font-size: 0.75rem;
+}
+
+.rte-menu__separator {
+  height: 1px;
+  margin: 0.25rem 0;
+  background: var(--app-border);
+}

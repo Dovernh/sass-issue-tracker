@@ -1,0 +1,190 @@
+{
+  "nav": {
+    "menu": "Menu",
+    "dashboard": "Dashboard",
+    "issues": "Issues",
+    "admin": "Admin",
+    "organizations": "Organizations",
+    "switchOrg": "Switch organization"
+  },
+  "dashboard": {
+    "totalIssues": "Total issues",
+    "noIssues": "No issues yet — create one to see charts here."
+  },
+  "admin": {
+    "users": "Users",
+    "permissions": "Permissions",
+    "priority": "Priority",
+    "category": "Category",
+    "language": "Languages",
+    "roles": "Roles",
+    "comingSoon": "This screen is coming soon."
+  },
+  "actions": {
+    "login": "Login",
+    "logout": "Logout",
+    "signInPrompt": "Sign in to get started.",
+    "exportCsv": "Export CSV",
+    "print": "Print",
+    "actions": "Actions"
+  },
+  "categories": {
+    "add": "Add category",
+    "empty": "No categories yet. Create the first one below.",
+    "heading": "Categories",
+    "loading": "Loading categories…",
+    "loadError": "Couldn't load categories.",
+    "new": "New category",
+    "edit": "Edit category",
+    "newCategory": "New category",
+    "key": "Key",
+    "labels": "Labels",
+    "order": "Sort order",
+    "editHint": "Double-click a cell to edit; edits save automatically. Use the bottom row to add."
+  },
+  "common": {
+    "add": "Add",
+    "cancel": "Cancel",
+    "create": "Create",
+    "delete": "Delete",
+    "edit": "Edit",
+    "view": "View",
+    "rename": "Rename",
+    "enableDisable": "Enable/Disable",
+    "resetPassword": "Reset password",
+    "retry": "Retry",
+    "save": "Save",
+    "update": "Update",
+    "loadError": "Couldn't load data.",
+    "name": "Name",
+    "email": "Email",
+    "role": "Role",
+    "status": "Status",
+    "created": "Created",
+    "joined": "Joined",
+    "yes": "Yes",
+    "no": "No"
+  },
+  "hero": {
+    "body": "Issue Tracker is a centralized platform for logging, triaging, and monitoring the issues your clients report. Capture every report, assign ownership, follow each issue through its lifecycle, and keep your whole team aligned on its current status.",
+    "tagline": "Track client issues and their status — from first report to resolution.",
+    "title": "Welcome"
+  },
+  "issues": {
+    "add": "Add issue",
+    "assignee": "Assignee",
+    "assigneePlaceholder": "User id",
+    "category": "Category",
+    "id": "ID",
+    "deleteTitle": "Delete issue",
+    "deleteMessage": "Delete issue #{{id}}? This can't be undone.",
+    "create": "Create issue",
+    "description": "Description",
+    "edit": "Edit issue",
+    "empty": "No issues yet. Create the first one above.",
+    "heading": "Issues",
+    "byStatus": "Issues by status",
+    "byPriority": "Issues by priority",
+    "loadError": "Couldn't load issues.",
+    "loading": "Loading issues…",
+    "new": "New issue",
+    "priority": "Priority",
+    "status": "Status",
+    "statuses": {
+      "closed": "Closed",
+      "in_progress": "In progress",
+      "open": "Open",
+      "resolved": "Resolved"
+    },
+    "update": "Update issue"
+  },
+  "language": {
+    "label": "Language"
+  },
+  "login": {
+    "email": "Email",
+    "emailPlaceholder": "you@example.com",
+    "errors": {
+      "emailInvalid": "Enter a valid email",
+      "emailRequired": "Email is required",
+      "generic": "Unable to sign in.",
+      "passwordRequired": "Password is required"
+    },
+    "heading": "Sign in",
+    "hidePassword": "Hide password",
+    "password": "Password",
+    "passwordPlaceholder": "Your password",
+    "showPassword": "Show password",
+    "submit": "Sign in",
+    "subtitle": "Welcome back — sign in to continue."
+  },
+  "priorities": {
+    "add": "Add priority",
+    "empty": "No priorities yet. Create the first one below.",
+    "heading": "Priorities",
+    "loading": "Loading priorities…",
+    "loadError": "Couldn't load priorities.",
+    "new": "New priority",
+    "edit": "Edit priority",
+    "newPriority": "New priority",
+    "key": "Key",
+    "labels": "Labels",
+    "order": "Sort order",
+    "editHint": "Double-click a cell to edit; edits save automatically. Use the bottom row to add."
+  },
+  "profile": {
+    "changePhoto": "Change profile photo",
+    "menu": "Account menu"
+  },
+  "theme": {
+    "toggle": "Toggle light/dark theme"
+  },
+  "languages": {
+    "heading": "Languages",
+    "loading": "Loading languages…",
+    "loadError": "Couldn't load languages.",
+    "empty": "No languages configured.",
+    "add": "Add language",
+    "new": "New language",
+    "newLanguage": "New language",
+    "edit": "Edit language",
+    "code": "Code",
+    "name": "Name",
+    "nativeName": "Native name",
+    "enabled": "Enabled",
+    "order": "Sort order"
+  },
+  "owner": {
+    "organization": "Organization",
+    "members": "Members",
+    "admins": "Admins"
+  },
+  "permissions": {
+    "member": "Member",
+    "editMember": "Edit member",
+    "roleResetHint": "Changing the role resets this member's permissions to that role's defaults."
+  },
+  "users": {
+    "add": "Add user",
+    "edit": "Edit user",
+    "tempPassword": "Temporary password",
+    "tempPasswordHint": "At least 8 characters. Share it with the user; they can change it later.",
+    "newPassword": "New password",
+    "passwordHint": "At least 8 characters."
+  },
+  "roles": {
+    "heading": "Roles & permissions",
+    "description": "Customize what members can do. Admins always have full access; viewers are read-only.",
+    "memberRole": "Member role",
+    "loading": "Loading roles…",
+    "saved": "Member permissions updated.",
+    "saveError": "Couldn't update member permissions.",
+    "permDashboardView": "View dashboard",
+    "permTasksView": "View issues",
+    "permTasksCreate": "Create issues",
+    "permTasksEdit": "Edit issues",
+    "permTasksDelete": "Delete issues",
+    "permMembersView": "View members",
+    "permSettingsView": "View settings"
+  }
+}

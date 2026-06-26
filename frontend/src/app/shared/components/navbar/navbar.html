@@ -1,0 +1,163 @@
+<nav class="navbar" aria-label="Primary">
+  <a class="navbar__brand" href="/" aria-label="Home">
+    <img class="navbar__logo" src="/issue-icon.svg" alt="" width="28" height="28" />
+    <span class="navbar__title">Issue Tracker</span>
+  </a>
+
+  <!-- Hamburger: shown on mobile only (CSS). Toggles the collapsible menu, which
+       on mobile holds the nav links AND the tools (language, theme, profile). -->
+  <button
+    type="button"
+    class="navbar__burger"
+    [attr.aria-expanded]="navOpen()"
+    [attr.aria-label]="'nav.menu' | translate"
+    (click)="toggleNav()"
+  >
+    <i class="bi" [class.bi-list]="!navOpen()" [class.bi-x-lg]="navOpen()" aria-hidden="true"></i>
+  </button>
+
+  <div class="navbar__menu" [class.navbar__menu--open]="navOpen()">
+    @if (auth.isSignedIn()) {
+      <div class="navbar__links">
+        @if (auth.isPlatformOwner()) {
+          <a routerLink="/owner" routerLinkActive="navbar__link--active" class="navbar__link" (click)="closeNav()">
+            {{ 'nav.organizations' | translate }}
+          </a>
+        } @else {
+          @if (canDashboard()) {
+            <a routerLink="/dashboard" routerLinkActive="navbar__link--active" class="navbar__link" (click)="closeNav()">
+              {{ 'nav.dashboard' | translate }}
+            </a>
+          }
+          <a routerLink="/issues" routerLinkActive="navbar__link--active" class="navbar__link" (click)="closeNav()">
+            {{ 'nav.issues' | translate }}
+          </a>
+          @if (canAdmin()) {
+            <a routerLink="/admin" routerLinkActive="navbar__link--active" class="navbar__link" (click)="closeNav()">
+              {{ 'nav.admin' | translate }}
+            </a>
+          }
+        }
+      </div>
+    }
+
+    <div class="navbar__tools">
+      @if (auth.canSwitchOrg()) {
+        <select
+          class="navbar__org"
+          [attr.aria-label]="'nav.switchOrg' | translate"
+          (change)="switchOrg($event)"
+        >
+          @for (org of auth.orgs(); track org.id) {
+            <option [value]="org.id" [selected]="org.id === auth.currentOrg()?.id">
+              {{ org.name }}
+            </option>
+          }
+        </select>
+      }
+
+      <select
+        id="language-select"
+        name="language"
+        class="navbar__lang"
+        [attr.aria-label]="'language.label' | translate"
+        (change)="changeLang($event)"
+      >
+        @for (lang of language.available(); track lang.code) {
+          <option [value]="lang.code" [selected]="lang.code === language.current()">
+            {{ lang.nativeName }}
+          </option>
+        }
+      </select>
+
+      <button
+        type="button"
+        class="navbar__theme"
+        [attr.aria-label]="'theme.toggle' | translate"
+        (click)="theme.toggle()"
+      >
+        <i
+          class="bi"
+          [class.bi-moon-stars]="theme.theme() === 'light'"
+          [class.bi-sun]="theme.theme() === 'dark'"
+          aria-hidden="true"
+        ></i>
+      </button>
+
+      @if (auth.isSignedIn()) {
+        <div class="profile">
+          <button
+            #trigger
+            type="button"
+            class="profile__trigger"
+            aria-haspopup="true"
+            [attr.aria-expanded]="profileOpen()"
+            [attr.aria-label]="'profile.menu' | translate"
+            (click)="toggleProfile()"
+          >
+            @if (avatarUrl(); as url) {
+              <img class="profile__avatar" [src]="url" alt="" width="34" height="34" />
+            } @else {
+              <span class="profile__avatar profile__avatar--fallback" aria-hidden="true">
+                {{ initials() }}
+              </span>
+            }
+          </button>
+
+          <div
+            class="profile__panel"
+            [class.profile__panel--open]="profileOpen()"
+            [attr.inert]="profileOpen() ? null : ''"
+          >
+            <div class="profile__identity">
+              <button
+                type="button"
+                class="profile__photo"
+                (click)="fileInput.click()"
+                [attr.aria-label]="'profile.changePhoto' | translate"
+              >
+                @if (avatarUrl(); as url) {
+                  <img class="profile__avatar profile__avatar--lg" [src]="url" alt="" width="56" height="56" />
+                } @else {
+                  <span class="profile__avatar profile__avatar--lg profile__avatar--fallback" aria-hidden="true">
+                    {{ initials() }}
+                  </span>
+                }
+                <span class="profile__photo-overlay" aria-hidden="true">
+                  <i class="bi bi-camera-fill"></i>
+                </span>
+              </button>
+              <input
+                #fileInput
+                type="file"
+                accept="image/*"
+                class="profile__file"
+                (change)="onImageSelected($event)"
+                hidden
+              />
+              <div class="profile__meta">
+                @if (displayName(); as name) {
+                  <span class="profile__name">{{ name }}</span>
+                }
+                <span class="profile__email">{{ userEmail() }}</span>
+              </div>
+            </div>
+
+            <button type="button" class="profile__logout" (click)="logout()">
+              <i class="bi bi-box-arrow-right" aria-hidden="true"></i>
+              {{ 'actions.logout' | translate }}
+            </button>
+          </div>
+        </div>
+      } @else {
+        <button
+          type="button"
+          class="navbar__btn navbar__btn--primary"
+          (click)="login.emit()"
+        >
+          {{ 'actions.login' | translate }}
+        </button>
+      }
+    </div>
+  </div>
+</nav>

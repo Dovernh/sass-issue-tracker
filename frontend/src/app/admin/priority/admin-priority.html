@@ -1,0 +1,33 @@
+<section class="admin-page">
+  <header class="admin-page__header">
+    <h1 class="admin-page__title">{{ 'priorities.heading' | translate }}</h1>
+  </header>
+
+  @if (priorities.isLoading()) {
+    <p class="admin-page__status" aria-live="polite">
+      <span class="spinner" aria-hidden="true"></span>
+      {{ 'priorities.loading' | translate }}
+    </p>
+  } @else if (priorities.error()) {
+    <p class="admin-page__status admin-page__status--error" role="alert">
+      <i class="bi bi-exclamation-octagon" aria-hidden="true"></i>
+
+      {{ 'priorities.loadError' | translate }}
+
+      <button type="button" class="admin-page__retry" (click)="priorities.reload()">
+        {{ 'common.retry' | translate }}
+      </button>
+    </p>
+  } @else {
+    <app-option-list-editor
+      [items]="items()"
+      [languages]="languages()"
+      [addLabel]="'priorities.add' | translate"
+      entityLabel="priority"
+      [canManage]="canManage()"
+      (create)="onCreate($event)"
+      (update)="onUpdate($event)"
+      (remove)="onRemove($event)"
+    />
+  }
+</section>

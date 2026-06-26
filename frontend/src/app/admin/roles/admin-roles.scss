@@ -1,0 +1,72 @@
+.roles {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.roles__title {
+  margin: 0;
+}
+
+.roles__intro {
+  margin: 0;
+  max-width: 56ch;
+  color: var(--pico-muted-color);
+}
+
+.roles__status {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.roles__status--error {
+  color: var(--app-danger);
+}
+
+.roles__list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  max-width: 28rem;
+  margin: 0;
+  padding: 1rem 1.25rem;
+  border: 1px solid var(--app-border);
+  border-radius: var(--app-radius);
+}
+
+.roles__legend {
+  padding: 0 0.4rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--pico-muted-color);
+}
+
+.roles__item {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin: 0;
+  cursor: pointer;
+
+  // Use the native checkbox (Pico restyles it into a thin bar that's hard to
+  // read/toggle); a real checkbox gives a clear checked/unchecked affordance.
+  input[type='checkbox'] {
+    flex: none;
+    width: 1.1rem;
+    height: 1.1rem;
+    margin: 0;
+    appearance: auto;
+    accent-color: var(--app-primary);
+    cursor: pointer;
+  }
+}
+
+.roles__actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.6rem;
+  max-width: 28rem;
+}

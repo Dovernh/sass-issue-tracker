@@ -1,0 +1,44 @@
+{
+  "name": "issue-tracker-backend",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Node/Express backend for the issue tracker — self-owned auth (argon2 + session JWTs, org permission guards) over libsql/Drizzle.",
+  "scripts": {
+    "start": "tsx src/index.ts",
+    "dev": "tsx watch src/index.ts",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "db:generate": "drizzle-kit generate",
+    "openapi:gen": "tsx src/openapi.gen.ts",
+    "db:seed": "tsx src/seed.ts",
+    "db:reset": "cp data/seed.db data/issue-tracker.db",
+    "db:studio": "drizzle-kit studio"
+  },
+  "engines": {
+    "node": ">=24"
+  },
+  "dependencies": {
+    "@asteasolutions/zod-to-openapi": "^7.3.4",
+    "@libsql/client": "^0.17.4",
+    "@sentry/node": "^10.58.0",
+    "argon2": "^0.44.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "drizzle-orm": "^0.45.2",
+    "express": "^4.21.2",
+    "express-rate-limit": "^8.5.2",
+    "jose": "^6.2.3",
+    "tsx": "^4.22.4",
+    "zod": "^3.25.76"
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.19",
+    "@types/express": "^4.17.25",
+    "@types/node": "^25.9.3",
+    "drizzle-kit": "^0.31.10",
+    "typescript": "^6.0.3",
+    "vitest": "^4.1.9"
+  }
+}

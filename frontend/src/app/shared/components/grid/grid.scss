@@ -1,0 +1,41 @@
+:host {
+  display: block;
+  height: 20rem;
+}
+
+/* Named to avoid Pico's global `.grid { display: grid }`, which would
+   override AG Grid's own host layout and collapse the grid. */
+.data-grid {
+  display: block;
+  height: 100%;
+  width: 100%;
+}
+
+:host ::ng-deep .ag-cell.ag-cell-value {
+  display: block;
+  line-height: 40px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+:host ::ng-deep .ag-paging-panel {
+  flex-wrap: wrap;
+  height: auto;
+  min-height: var(--ag-header-height, 3rem);
+  justify-content: center;
+  gap: 0.25rem 1.25rem;
+  padding-block: 0.5rem;
+}
+
+/* The "Page X of Y" label collapses to display:block / line-height:0 / a tiny
+   width, which wraps and overlaps its spans. Force a clean inline row.
+   !important overrides AG Grid's own (equal-specificity) rule. */
+:host ::ng-deep .ag-paging-description {
+  display: inline-flex !important;
+  align-items: baseline;
+  gap: 0.25rem;
+  width: auto !important;
+  line-height: normal !important;
+  white-space: nowrap;
+}

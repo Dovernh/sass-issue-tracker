@@ -1,0 +1,10 @@
+<div class="rte" [class.rte--disabled]="disabled()">
+  <app-rte-toolbar
+    [editor]="editor()"
+    [state]="state()"
+    [disabled]="disabled()"
+    [label]="label()" />
+
+  <!-- Tiptap mounts its contenteditable region here. -->
+  <div #mount class="rte__editor"></div>
+</div>

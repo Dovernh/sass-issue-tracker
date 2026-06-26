@@ -1,0 +1,94 @@
+.issue-form {
+  /* No card chrome: this form always renders inside a modal, whose panel
+     already provides the border, background, padding, and shadow. */
+  display: flex;
+  flex-direction: column;
+  gap: 1.1rem;
+
+  h2 {
+    margin: 0;
+    font-size: 1.25rem;
+  }
+
+  label,
+  .issue-form__field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    margin: 0;
+  }
+
+  /* The label text styling; on native labels it's the element itself, on the
+     rich-text field it's the dedicated label span. */
+  label,
+  .issue-form__label {
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--pico-muted-color);
+  }
+
+  .required {
+    margin-left: 0.15rem;
+    color: var(--pico-del-color, #d93526);
+    text-decoration: none;
+  }
+
+  /* Reserve a slot for the description's validation message so showing/hiding
+     it doesn't grow/shrink the dialog. Only the description field has a
+     validator, and it's the form's direct-child field (row fields are nested
+     in .issue-form__row), so this stays scoped to it. The error is inserted
+     inside the field, so reset the label's uppercase/bold styling on it. */
+  > label,
+  > .issue-form__field {
+    position: relative;
+    padding-bottom: 1.2rem;
+  }
+
+  > label > .field-error,
+  > .issue-form__field > .field-error {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    margin: 0;
+    font-weight: 400;
+    letter-spacing: normal;
+    text-transform: none;
+    line-height: 1.2;
+  }
+
+  textarea,
+  input,
+  select {
+    margin: 0;
+    font-family: var(--app-font-sans);
+    font-size: 0.95rem;
+    font-weight: 400;
+    letter-spacing: normal;
+    text-transform: none;
+    color: var(--pico-color);
+    border-radius: var(--app-radius-sm);
+
+    &:focus-visible {
+      box-shadow: var(--app-ring);
+    }
+  }
+
+}
+
+.issue-form__actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.6rem;
+}
+
+.issue-form__row {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: 1fr;
+
+  @media (min-width: 640px) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}

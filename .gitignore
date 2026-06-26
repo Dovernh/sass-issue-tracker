@@ -1,0 +1,21 @@
+node_modules/
+dist/
+.angular/
+.env
+*.log
+.DS_Store
+
+# SQLite database files (local working DBs); the committed seed snapshot is exempted below
+backend/data/*.db
+*.db-wal
+*.db-shm
+# Committed pre-seeded snapshot — restore with `npm run db:reset`
+!backend/data/seed.db
+
+# Playwright
+test-results/
+playwright-report/
+playwright/.cache/
+
+# Playwright MCP browser output (screenshots, snapshots, logs)
+.playwright-mcp/

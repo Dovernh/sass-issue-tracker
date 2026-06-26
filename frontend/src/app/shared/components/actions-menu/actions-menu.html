@@ -1,0 +1,19 @@
+<div class="actions-menu">
+  <button
+    type="button"
+    class="btn btn--ghost actions-menu__trigger"
+    aria-haspopup="menu"
+    [attr.aria-expanded]="open()"
+    (click)="toggle($event)"
+  >
+    <i class="bi bi-three-dots" aria-hidden="true"></i>
+    {{ label() }}
+    <i class="bi bi-chevron-down actions-menu__caret" aria-hidden="true"></i>
+  </button>
+
+  @if (open()) {
+    <div class="actions-menu__panel">
+      <ng-content />
+    </div>
+  }
+</div>

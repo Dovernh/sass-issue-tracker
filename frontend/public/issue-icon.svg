@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Issue">
+  <!-- warning triangle, yellow border -->
+  <path d="M32 8 L58 54 H6 Z"
+        fill="#fff8e6" stroke="#f5a623" stroke-width="4"
+        stroke-linejoin="round"/>
+
+  <!-- cog with one missing tooth (top tooth omitted) -->
+  <g fill="#5b6470">
+    <rect x="29.5" y="26" width="5" height="7" rx="1" transform="rotate(45 32 41)"/>
+    <rect x="29.5" y="26" width="5" height="7" rx="1" transform="rotate(90 32 41)"/>
+    <rect x="29.5" y="26" width="5" height="7" rx="1" transform="rotate(135 32 41)"/>
+    <rect x="29.5" y="26" width="5" height="7" rx="1" transform="rotate(180 32 41)"/>
+    <rect x="29.5" y="26" width="5" height="7" rx="1" transform="rotate(225 32 41)"/>
+    <rect x="29.5" y="26" width="5" height="7" rx="1" transform="rotate(270 32 41)"/>
+    <rect x="29.5" y="26" width="5" height="7" rx="1" transform="rotate(315 32 41)"/>
+    <circle cx="32" cy="41" r="9"/>
+  </g>
+  <!-- hub -->
+  <circle cx="32" cy="41" r="3.5" fill="#fff8e6"/>
+</svg>

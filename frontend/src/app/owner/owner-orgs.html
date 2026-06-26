@@ -1,0 +1,142 @@
+<section class="orgs">
+  <header class="orgs__header">
+    <h1 class="orgs__title">Organizations</h1>
+    <button type="button" class="btn btn--primary" (click)="openCreate()">Create organization</button>
+  </header>
+
+  @if (orgs.isLoading()) {
+    <p aria-live="polite"><span class="spinner" aria-hidden="true"></span> Loading…</p>
+  } @else if (orgs.error()) {
+    <p class="form-error" role="alert">
+      Could not load organizations.
+      <button type="button" class="btn btn--ghost" (click)="orgs.reload()">Retry</button>
+    </p>
+  } @else {
+    <app-grid
+      [rowData]="orgs.value()"
+      [colDefs]="columns()"
+      [actions]="actions()"
+      (action)="onAction($event)"
+    />
+  }
+</section>
+
+<!-- Create organization -->
+<app-modal [open]="createOpen()" [label]="'Create organization'" (closed)="createOpen.set(false)">
+  <form class="org-form" (submit)="$event.preventDefault(); submitCreate()">
+    <h2 class="org-form__title">Create organization</h2>
+
+    <label class="org-form__field">
+      <span>Organization name</span>
+      <input type="text" [value]="createModel().orgName"
+        (input)="patchCreate('orgName', $any($event.target).value)" required />
+    </label>
+
+    <label class="org-form__field">
+      <span>First admin email</span>
+      <input type="email" autocomplete="off" [value]="createModel().adminEmail"
+        (input)="patchCreate('adminEmail', $any($event.target).value)" required />
+    </label>
+
+    <label class="org-form__field">
+      <span>Admin name</span>
+      <input type="text" [value]="createModel().adminName"
+        (input)="patchCreate('adminName', $any($event.target).value)" />
+    </label>
+
+    <label class="org-form__field">
+      <span>Admin temporary password</span>
+      <input type="text" autocomplete="off" [value]="createModel().adminPassword"
+        (input)="patchCreate('adminPassword', $any($event.target).value)" required />
+      <small>At least 8 characters. Share it with the admin; they can change it later.</small>
+    </label>
+
+    @if (createError()) { <p class="form-error" role="alert">{{ createError() }}</p> }
+
+    <div class="org-form__actions">
+      <button type="button" class="btn btn--ghost" (click)="createOpen.set(false)">Cancel</button>
+      <button type="submit" class="btn btn--primary" [disabled]="!createValid()">Create</button>
+    </div>
+  </form>
+</app-modal>
+
+<!-- Rename organization -->
+<app-modal [open]="!!renaming()" [label]="'Rename organization'" (closed)="renaming.set(null)">
+  @if (renaming(); as org) {
+    <form class="org-form" (submit)="$event.preventDefault(); submitRename()">
+      <h2 class="org-form__title">Rename {{ org.name }}</h2>
+
+      <label class="org-form__field">
+        <span>Organization name</span>
+        <input type="text" [value]="renameValue()"
+          (input)="renameValue.set($any($event.target).value)" required />
+      </label>
+
+      @if (renameError()) { <p class="form-error" role="alert">{{ renameError() }}</p> }
+
+      <div class="org-form__actions">
+        <button type="button" class="btn btn--ghost" (click)="renaming.set(null)">Cancel</button>
+        <button type="submit" class="btn btn--primary">Save</button>
+      </div>
+    </form>
+  }
+</app-modal>
+
+<!-- Manage admins -->
+<app-modal [open]="!!managing()" [label]="'Manage admins'" (closed)="closeManaging()">
+  @if (managing(); as org) {
+    <div class="org-admins">
+      <h2 class="org-form__title">Admins — {{ org.name }}</h2>
+
+      <ul class="org-admins__list">
+        @for (admin of org.admins; track admin.userId) {
+          <li class="org-admins__item">
+            <span class="org-admins__who">
+              <span class="org-admins__name">{{ admin.name || admin.email }}</span>
+              @if (admin.name) { <span class="org-admins__email">{{ admin.email }}</span> }
+            </span>
+            <button
+              type="button"
+              class="btn btn--ghost btn--danger"
+              [disabled]="org.admins.length <= 1"
+              [attr.title]="org.admins.length <= 1 ? 'An org must keep at least one admin' : null"
+              (click)="removeAdmin(admin)"
+            >
+              Remove
+            </button>
+          </li>
+        }
+      </ul>
+
+      <form class="org-form" (submit)="$event.preventDefault(); submitAddAdmin()">
+        <h3 class="org-admins__subtitle">Add an admin</h3>
+
+        <label class="org-form__field">
+          <span>Email</span>
+          <input type="email" autocomplete="off" [value]="addAdmin().email"
+            (input)="patchAdmin('email', $any($event.target).value)" required />
+        </label>
+
+        <label class="org-form__field">
+          <span>Name</span>
+          <input type="text" [value]="addAdmin().name"
+            (input)="patchAdmin('name', $any($event.target).value)" />
+        </label>
+
+        <label class="org-form__field">
+          <span>Temporary password</span>
+          <input type="text" autocomplete="off" [value]="addAdmin().password"
+            (input)="patchAdmin('password', $any($event.target).value)" required />
+          <small>At least 8 characters.</small>
+        </label>
+
+        @if (addAdminError()) { <p class="form-error" role="alert">{{ addAdminError() }}</p> }
+
+        <div class="org-form__actions">
+          <button type="button" class="btn btn--ghost" (click)="closeManaging()">Close</button>
+          <button type="submit" class="btn btn--primary" [disabled]="!addAdminValid()">Add admin</button>
+        </div>
+      </form>
+    </div>
+  }
+</app-modal>

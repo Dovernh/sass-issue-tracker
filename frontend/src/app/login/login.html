@@ -1,0 +1,52 @@
+<form [formRoot]="loginForm" class="login">
+  <header class="login__head">
+    <h2 class="login__title">{{ 'login.heading' | translate }}</h2>
+    <p class="login__subtitle">{{ 'login.subtitle' | translate }}</p>
+  </header>
+
+  <div class="login__field">
+    <label class="login__label" for="login-email">{{ 'login.email' | translate }}</label>
+    <input
+      id="login-email"
+      type="email"
+      autocomplete="email"
+      [formField]="loginForm.email"
+      [placeholder]="'login.emailPlaceholder' | translate"
+    />
+  </div>
+
+  <div class="login__field">
+    <label class="login__label" for="login-password">{{ 'login.password' | translate }}</label>
+    <div class="reveal">
+      <input
+        id="login-password"
+        autocomplete="current-password"
+        [type]="showPassword() ? 'text' : 'password'"
+        [formField]="loginForm.password"
+        [placeholder]="'login.passwordPlaceholder' | translate"
+      />
+      <button
+        class="eye"
+        type="button"
+        [attr.aria-label]="(showPassword() ? 'login.hidePassword' : 'login.showPassword') | translate"
+        [attr.aria-pressed]="showPassword()"
+        (click)="showPassword.set(!showPassword())"
+      >
+        <i class="bi" [class.bi-eye]="!showPassword()" [class.bi-eye-slash]="showPassword()"></i>
+      </button>
+    </div>
+  </div>
+
+  @if (submitError()) {
+    <p class="form-error" role="alert">{{ submitError() }}</p>
+  }
+
+  <div class="login__actions">
+    <button type="button" class="btn btn--ghost" (click)="cancelled.emit()">
+      {{ 'common.cancel' | translate }}
+    </button>
+    <button type="submit" class="btn btn--primary">
+      {{ 'login.submit' | translate }}
+    </button>
+  </div>
+</form>

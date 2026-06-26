@@ -1,0 +1,82 @@
+:host {
+  display: block;
+}
+
+.rte-toolbar {
+  display: flex;
+  flex-direction: column;
+  border-bottom: 1px solid var(--app-border);
+  background: var(--app-surface-sunken);
+}
+
+.rte-toolbar__menubar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.125rem;
+  padding: 0.2rem 0.35rem;
+  border-bottom: 1px solid var(--app-border);
+}
+
+.rte-toolbar__bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.125rem;
+  padding: 0.3rem 0.35rem;
+}
+
+.rte-toolbar__group {
+  display: flex;
+  align-items: center;
+  gap: 0.125rem;
+}
+
+.rte-toolbar__divider {
+  width: 1px;
+  align-self: stretch;
+  min-height: 1.4rem;
+  margin: 0.25rem 0.3rem;
+  background: var(--app-border);
+}
+
+.rte-toolbar__btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.9rem;
+  height: 1.9rem;
+  padding: 0;
+  border: 1px solid transparent;
+  border-radius: var(--app-radius-sm);
+  background: transparent;
+  color: var(--app-text);
+  font-size: 0.95rem;
+  line-height: 1;
+  cursor: pointer;
+  transition:
+    background-color 0.12s ease,
+    color 0.12s ease,
+    border-color 0.12s ease;
+
+  &:hover:not(:disabled) {
+    background: color-mix(in srgb, var(--app-text) 9%, transparent);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--app-primary);
+    outline-offset: 1px;
+  }
+
+  /* Word-style toggle: a light tint with the accent color, not a solid fill. */
+  &--active,
+  &--active:hover:not(:disabled) {
+    background: var(--app-primary-soft);
+    border-color: color-mix(in srgb, var(--app-primary) 35%, transparent);
+    color: var(--app-primary);
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+    color: var(--app-muted);
+  }
+}

@@ -1,0 +1,33 @@
+# Render Blueprint — deploys the API (Node web service) and the Angular SPA
+# (static site). Create via Render dashboard → "New +" → "Blueprint" pointing
+# at this repo. Secrets (sync: false) are entered in the dashboard, never here.
+services:
+  - type: web
+    name: issue-tracker-api
+    runtime: node
+    plan: free
+    rootDir: backend
+    buildCommand: npm install
+    startCommand: npm start
+    healthCheckPath: /api/health
+    envVars:
+      - key: AUTH_SECRET # openssl rand -base64 48
+        sync: false
+      - key: DATABASE_URL # libsql://<db>-<org>.turso.io
+        sync: false
+      - key: TURSO_AUTH_TOKEN
+        sync: false
+      - key: FRONTEND_URL # https://issue-tracker-web.onrender.com
+        sync: false
+
+  - type: web
+    name: issue-tracker-web
+    runtime: static
+    rootDir: frontend
+    buildCommand: npm install && npm run build
+    staticPublishPath: dist/issue-tracker/browser
+    # SPA fallback so deep links / refreshes resolve to index.html.
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html

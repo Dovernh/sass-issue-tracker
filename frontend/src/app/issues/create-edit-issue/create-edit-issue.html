@@ -1,0 +1,64 @@
+<form [formRoot]="createForm" class="issue-form">
+  @if (selectedIssue()) {
+    <h2>{{ 'issues.edit' | translate }}</h2>
+  } @else {
+    <h2>{{ 'issues.new' | translate }}</h2>
+  }
+
+  <!-- Not a <label>: the editor is a custom control named via its own aria-label,
+       so a wrapping <label> would have no native control to associate with. -->
+  <div class="issue-form__field">
+    <span class="issue-form__label">
+      {{ 'issues.description' | translate }}
+      <span class="required" aria-hidden="true">*</span>
+    </span>
+
+    <app-rich-text-editor
+      [formField]="createForm.description"
+      [label]="'issues.description' | translate"
+    />
+  </div>
+
+  <div class="issue-form__row">
+    <label>
+      {{ 'issues.priority' | translate }}
+      <select [formField]="createForm.priority">
+        @for (p of priorities.value(); track p.key) {
+          <option [value]="p.key">{{ optionLabels.label('priority', p.key) }}</option>
+        }
+      </select>
+    </label>
+
+    <label>
+      {{ 'issues.category' | translate }}
+      <select [formField]="createForm.category">
+        @for (c of categories.value(); track c.key) {
+          <option [value]="c.key">{{ optionLabels.label('category', c.key) }}</option>
+        }
+      </select>
+    </label>
+
+    <label>
+      {{ 'issues.assignee' | translate }}
+      <select [formField]="createForm.assignedUser">
+        @for (m of members.value(); track m.userId) {
+          <option [value]="m.userId">{{ m.name || m.email }}</option>
+        }
+      </select>
+    </label>
+  </div>
+
+  <div class="issue-form__actions">
+    <button class="btn btn--secondary" type="button" (click)="cancelled.emit()">
+      {{ 'common.cancel' | translate }}
+    </button>
+
+    <button class="btn btn--primary" type="submit">
+      @if (selectedIssue()) {
+        {{ 'issues.update' | translate }}
+      } @else {
+        {{ 'issues.create' | translate }}
+      }
+    </button>
+  </div>
+</form>

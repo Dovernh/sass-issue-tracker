@@ -1,0 +1,131 @@
+<section class="users">
+  <header class="users__header">
+    <h2 class="users__title">{{ 'admin.users' | translate }}</h2>
+    <button *appPermissions="'org:members:manage'" type="button" class="btn btn--primary" (click)="openCreate()">
+      {{ 'users.add' | translate }}
+    </button>
+  </header>
+
+  @if (members.isLoading()) {
+    <p aria-live="polite"><span class="spinner" aria-hidden="true"></span> Loading…</p>
+  } @else if (members.error()) {
+    <p class="form-error" role="alert">
+      {{ 'common.loadError' | translate }}
+      <button type="button" class="btn btn--ghost" (click)="members.reload()">
+        {{ 'common.retry' | translate }}
+      </button>
+    </p>
+  } @else {
+    <app-grid
+      [rowData]="members.value()"
+      [colDefs]="columns()"
+      [actions]="actions()"
+      (action)="onAction($event)"
+    />
+  }
+</section>
+
+<!-- Create user -->
+<app-modal [open]="createOpen()" size="sm" [label]="'users.add' | translate" (closed)="createOpen.set(false)">
+  <form class="user-form" (submit)="$event.preventDefault(); submitCreate()">
+    <h2 class="user-form__title">{{ 'users.add' | translate }}</h2>
+
+    <label class="user-form__field">
+      <span>{{ 'common.email' | translate }}</span>
+      <input type="email" autocomplete="off" [value]="createModel().email"
+        (input)="patchCreate('email', $any($event.target).value)" required />
+    </label>
+
+    <label class="user-form__field">
+      <span>{{ 'common.name' | translate }}</span>
+      <input type="text" [value]="createModel().name"
+        (input)="patchCreate('name', $any($event.target).value)" />
+    </label>
+
+    <label class="user-form__field">
+      <span>{{ 'common.role' | translate }}</span>
+      <select (change)="patchCreate('role', $any($event.target).value)">
+        @for (r of roles; track r) {
+          <option [value]="r" [selected]="r === createModel().role">{{ r }}</option>
+        }
+      </select>
+    </label>
+
+    <label class="user-form__field">
+      <span>{{ 'users.tempPassword' | translate }}</span>
+      <input type="text" autocomplete="off" [value]="createModel().password"
+        (input)="patchCreate('password', $any($event.target).value)" required />
+      <small>{{ 'users.tempPasswordHint' | translate }}</small>
+    </label>
+
+    @if (createError()) { <p class="form-error" role="alert">{{ createError() }}</p> }
+
+    <div class="user-form__actions">
+      <button type="button" class="btn btn--ghost" (click)="createOpen.set(false)">
+        {{ 'common.cancel' | translate }}
+      </button>
+      <button type="submit" class="btn btn--primary" [disabled]="!createValid()">
+        {{ 'common.create' | translate }}
+      </button>
+    </div>
+  </form>
+</app-modal>
+
+<!-- Edit user -->
+<app-modal [open]="!!editing()" size="sm" [label]="'users.edit' | translate" (closed)="editing.set(null)">
+  @if (editing(); as member) {
+    <form class="user-form" (submit)="$event.preventDefault(); submitEdit()">
+      <h2 class="user-form__title">{{ 'common.edit' | translate }} {{ member.email }}</h2>
+
+      <label class="user-form__field">
+        <span>{{ 'common.name' | translate }}</span>
+        <input type="text" [value]="editModel().name"
+          (input)="patchEdit('name', $any($event.target).value)" />
+      </label>
+
+      <label class="user-form__field">
+        <span>{{ 'common.role' | translate }}</span>
+        <select (change)="patchEdit('role', $any($event.target).value)">
+          @for (r of roles; track r) {
+            <option [value]="r" [selected]="r === editModel().role">{{ r }}</option>
+          }
+        </select>
+        <small>{{ 'permissions.roleResetHint' | translate }}</small>
+      </label>
+
+      @if (editError()) { <p class="form-error" role="alert">{{ editError() }}</p> }
+
+      <div class="user-form__actions">
+        <button type="button" class="btn btn--ghost" (click)="editing.set(null)">
+          {{ 'common.cancel' | translate }}
+        </button>
+        <button type="submit" class="btn btn--primary">{{ 'common.save' | translate }}</button>
+      </div>
+    </form>
+  }
+</app-modal>
+
+<!-- Reset password -->
+<app-modal [open]="!!resetting()" size="sm" [label]="'common.resetPassword' | translate" (closed)="resetting.set(null)">
+  @if (resetting(); as member) {
+    <form class="user-form" (submit)="$event.preventDefault(); submitReset()">
+      <h2 class="user-form__title">{{ 'common.resetPassword' | translate }} — {{ member.email }}</h2>
+
+      <label class="user-form__field">
+        <span>{{ 'users.newPassword' | translate }}</span>
+        <input type="text" autocomplete="off" [value]="resetPassword()"
+          (input)="resetPassword.set($any($event.target).value)" required />
+        <small>{{ 'users.passwordHint' | translate }}</small>
+      </label>
+
+      @if (resetError()) { <p class="form-error" role="alert">{{ resetError() }}</p> }
+
+      <div class="user-form__actions">
+        <button type="button" class="btn btn--ghost" (click)="resetting.set(null)">
+          {{ 'common.cancel' | translate }}
+        </button>
+        <button type="submit" class="btn btn--primary">{{ 'common.resetPassword' | translate }}</button>
+      </div>
+    </form>
+  }
+</app-modal>
